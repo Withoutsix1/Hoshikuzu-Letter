@@ -12,3 +12,6 @@ export { default as StarMenuButton } from './StarMenuButton.js';
 export { default as Meteors } from './Meteors.js';
 export { default as ReadingModeControls } from './ReadingModeControls.js';
 export type { Quality } from './visualTypes.js';
+export { default as SettingsPanel, SettingsStar, StarSlider, type ChangePreference } from './SettingsPanel.js';
+export { default as SettingsModal } from './SettingsModal.js';
+export { defaultPreferences, isPreferences, type Preferences } from './preferences.js';

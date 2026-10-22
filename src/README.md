@@ -1,7 +1,7 @@
 # 通用 UI 模块
 
 本说明与 `ui-primitives/` 中的程序按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
-当前提供 13 个不依赖 Studio SDK 的独立模块，附公共视觉类型和独立样式，用于在其他界面中组合使用。
+当前提供 16 个不依赖 Studio SDK 的独立模块，附公共视觉类型和独立样式，用于在其他界面中组合使用。
 
 ## 安装与检查
 
@@ -31,6 +31,10 @@ JavaScript、类型声明和 `styles.css` 产物位于 `dist/ui-primitives/`，�
 | `StarMenuButton` | 使用调用方提供的编号、标题、副标题与回调；`paused` 禁用按钮并重置充能，`reduced` 去除位移、呼吸与爆散 |
 | `Meteors({ quality, reduced })`、`Quality` | `high` 显示 3 条流星，`medium` 显示 2 条，`low`／`off` 或 `reduced=true` 时不渲染；随容器尺寸更新轨迹 |
 | `ReadingModeControls({ mode, change })` | 由调用方保存 `ReadingMode`，点击时请求切换 `normal`／`special`，同步显示 `aria-pressed` |
+| `Preferences`、`defaultPreferences`、`isPreferences(value)` | 偏好类型、默认值与运行时校验；质量须为四个有效值，音量和文字速度须为有限的 0–100 数值 |
+| `SettingsPanel`、`ChangePreference` | 受控的质量、声音、文字速度和全屏设置面板；通过类型化回调将变更交给应用 |
+| `SettingsStar`、`StarSlider` | 可独立使用的装饰星与带数值显示的滑块；滑块输入范围为 0–100 |
+| `SettingsModal({ close, reduced, children })` | 原生模态设置窗口；处理背景隔离、键盘循环、退出动画、焦点返回与页面滚动恢复 |
 
 交互 Hook 需要 React 和浏览器 DOM。`useFrameCovered` 不直接控制画面渲染，也不适用于服务端渲染。
 React 应用中的元素挂载后应通过状态更新传入实际 `HTMLElement`，而不是只修改一个不会触发重渲染的 ref。
@@ -130,7 +134,7 @@ function ThreadExample({ reduced }: { reduced: boolean }) {
 
 子组件通过 `useResource()` 取得对应的 `url` 和 `portal`；这里只传递容器，不自动创建 Portal。
 
-前两批通用逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。本轮的四个可视组件、曲线交互和画面切换另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效和样式隔离。实际听感、React 18 及其他浏览器行为尚未单独验证。
+基础逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。可视组件、曲线交互、画面切换、设置面板和弹窗另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效、样式隔离和焦点恢复。实际听感、React 18 及其他浏览器行为尚未单独验证。
 
 ## 独立视觉组件与样式
 
@@ -168,4 +172,39 @@ function VisualExample({ paused, reduced }: { paused: boolean; reduced: boolean 
 
 暂停时，将 `paused` 传给菜单按钮，并为容器添加 `ambient-paused` 类以暂停装饰星与流星的 CSS 动画。减少动效时，将 `reduced` 同时传给相关组件；应用可根据自己的设置或 `prefers-reduced-motion` 决定此值。
 
-这批组件为独立使用增加了按钮类型、暂停禁用与减少动效属性；流星的质量类型已从原先混合数据模型中单独提取。未迁入完整标题菜单布局或剧情阶段数据。
+上述可视组件为独立使用增加了按钮类型、暂停禁用与减少动效属性；流星的质量类型已从原先混合数据模型中单独提取。未迁入完整标题菜单布局或剧情阶段数据。
+
+## 设置面板与弹窗
+
+`SettingsPanel` 接收完整的 `preferences` 和 `change(key, value)` 回调。调用方负责保存偏好，并将音量、文字速度、质量与全屏请求接入应用的对应能力。初始化时复制 `defaultPreferences`，从存储等位置读取未知数据时可先用 `isPreferences` 校验。
+
+```tsx
+import { useState } from 'react';
+import './dist/ui-primitives/styles.css';
+import { defaultPreferences, SettingsPanel, SettingsModal, type ChangePreference, type Preferences } from './dist/ui-primitives/index.js';
+
+function SettingsExample({ systemReduced }: { systemReduced: boolean }) {
+  const [preferences, setPreferences] = useState<Preferences>(() => ({ ...defaultPreferences }));
+  const [open, setOpen] = useState(false);
+  const change: ChangePreference = (key, value) => setPreferences(current => ({ ...current, [key]: value }));
+  return (
+    <div className="hoshikuzu-primitives">
+      <button type="button" onClick={() => setOpen(true)}>设置</button>
+      {open && (
+        <SettingsModal reduced={preferences.reduced || systemReduced} close={() => setOpen(false)}>
+          <SettingsPanel preferences={preferences} change={change} systemReduced={systemReduced}
+            fullscreenAvailable={false} fullscreen={() => {}} />
+        </SettingsModal>
+      )}
+    </div>
+  );
+}
+```
+
+面板也可以直接放入页面。`fullscreenAvailable` 决定全屏按钮是否可用，`fullscreenActive` 表示当前状态，`fullscreen` 回调负责调用应用的全屏能力。`additionalOptions` 可追加应用自己的设置项。每个面板使用独立的标题 ID，允许在同页呈现多个实例。
+
+`SettingsModal` 需要浏览器支持原生 `HTMLDialogElement.showModal()`。通过条件渲染挂载弹窗，在 `close` 回调中移除它；窗口打开期间会隔离背景操作并锁定页面滚动。返回按钮、Escape 与遮罩点击都能关闭，Tab／Shift+Tab 在可用控件之间循环，折叠区域内的隐藏控件不会进入循环。面板内部点击会保持窗口打开。
+
+`reduced=true` 时立即关闭；其他情况下等待 0.3 秒退出动画后通知 `close`。重复关闭只通知一次；外部卸载也会清理滚动锁和恢复可返回的焦点。应用应将 `preferences.reduced || systemReduced` 同步传给需要减少动效的其他组件。
+
+偏好校验覆盖有效质量值、布尔开关和有限的数值范围，不要求数值为整数。滑块输入按步长 1 提交数值，调用方传入的 `value` 应在 0–100 内。实际声音、文字显现和浏览器全屏能力须在接入应用后验证。

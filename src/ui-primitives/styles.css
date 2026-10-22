@@ -385,3 +385,540 @@
   .hoshikuzu-primitives .letter-mode-controls > span { width: 100%; margin-bottom: 2px; }
   .hoshikuzu-primitives .letter-mode-controls button { padding: 10px 12px; flex-wrap: wrap; }
 }
+
+/* Standalone settings panel and native modal dialog. */
+.hoshikuzu-primitives { --hoshikuzu-settings-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; }
+.hoshikuzu-primitives .settings-back, .hoshikuzu-primitives .settings-switch, .hoshikuzu-primitives .settings-quality button, .hoshikuzu-primitives .settings-fullscreen { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; touch-action: manipulation; }
+.hoshikuzu-primitives .settings-back:focus-visible, .hoshikuzu-primitives .settings-switch:focus-visible, .hoshikuzu-primitives .settings-quality button:focus-visible, .hoshikuzu-primitives .settings-fullscreen:focus-visible, .hoshikuzu-primitives .settings-range input:focus-visible { outline: 2px solid #e8cf91; outline-offset: 4px; }
+.hoshikuzu-primitives .settings-fullscreen:disabled { cursor: default; opacity: .45; }
+.hoshikuzu-primitives .modal-backdrop.settings-backdrop { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; margin: 0; border: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; color: inherit; backdrop-filter: blur(8px); }
+.hoshikuzu-primitives .settings-backdrop:not([open]) { display: none; }
+.hoshikuzu-primitives .settings-backdrop::backdrop { background: transparent; }
+.hoshikuzu-primitives .modal-backdrop.settings-backdrop {
+  background: #050d1cc2;
+  padding: 32px 35px;
+}
+.hoshikuzu-primitives .modal-panel.settings-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(1480px, 100%);
+  max-height: calc(100dvh - 64px);
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+}
+.hoshikuzu-primitives .settings-modal-heading {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 4px 12px;
+  flex: 0 0 auto;
+}
+.hoshikuzu-primitives .settings-back {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  padding: 6px 6px 8px;
+  color: #e8eaf1;
+  text-align: right;
+}
+.hoshikuzu-primitives .settings-back > span {
+  font-family: var(--hoshikuzu-settings-serif);
+  font-size: 16px;
+  letter-spacing: 0.18em;
+}
+.hoshikuzu-primitives .settings-back small {
+  grid-column: 2;
+  margin-top: 3px;
+  color: #9aabc6;
+  font-size: 9px;
+  letter-spacing: 0.42em;
+}
+.hoshikuzu-primitives .settings-star {
+  width: 22px;
+  height: 22px;
+  fill: #f4d897;
+  filter: drop-shadow(0 0 5px #fbdc99a8) drop-shadow(0 0 13px #fbdc9952);
+  flex-shrink: 0;
+  animation: hoshikuzu-primitives-settings-star-breathe 4.2s ease-in-out infinite;
+}
+@keyframes hoshikuzu-primitives-settings-star-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.hoshikuzu-primitives.ambient-paused .settings-star {
+  animation-play-state: paused;
+}
+.hoshikuzu-primitives .settings-experience {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(185px, 21.5%) minmax(0, 1fr);
+  gap: 34px;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #5a6f89 transparent;
+  padding: 2px 2px 12px;
+}
+.hoshikuzu-primitives .settings-orbits {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #c4cfe329;
+  stroke-width: 0.7;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .settings-orbit-dots {
+  stroke: #f2d79a65;
+  stroke-dasharray: 1 6;
+}
+.hoshikuzu-primitives .settings-intro {
+  position: relative;
+  padding: 24px 0 24px 5px;
+}
+.hoshikuzu-primitives .settings-kicker {
+  margin: 0 0 17px;
+  color: #99adc9;
+  font-size: clamp(10px, 0.82vw, 13px);
+  letter-spacing: 0.27em;
+}
+.hoshikuzu-primitives .settings-intro h2 {
+  margin: 0;
+  font-family: var(--hoshikuzu-settings-serif);
+  font-size: clamp(31px, 3.05vw, 49px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  color: #f2f1f0;
+}
+.hoshikuzu-primitives .settings-english {
+  margin: 15px 0 0;
+  font-family: Georgia, serif;
+  font-size: clamp(9px, 0.82vw, 13px);
+  letter-spacing: 0.44em;
+  color: #e2c791;
+}
+.hoshikuzu-primitives .settings-intro-rule {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: 43px 0 23px;
+  background: #d8c599aa;
+}
+.hoshikuzu-primitives .settings-poem {
+  margin: 0;
+  font-size: clamp(11px, 0.86vw, 14px);
+  line-height: 1.9;
+  letter-spacing: 0.035em;
+  color: #91a3bf;
+}
+.hoshikuzu-primitives .settings-pane {
+  position: relative;
+  min-width: 0;
+  padding: clamp(24px, 2.8vw, 45px) clamp(24px, 3vw, 48px) 25px;
+  border: 1px solid #a7b7d134;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #122037c9, #101b30bc);
+  box-shadow:
+    0 24px 75px #0003,
+    inset 0 0 75px #06122528;
+}
+.hoshikuzu-primitives .settings-section + .settings-section {
+  margin-top: clamp(24px, 2.5vw, 40px);
+}
+.hoshikuzu-primitives .settings-section-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 37px;
+  padding-bottom: 11px;
+}
+.hoshikuzu-primitives .settings-section-heading::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, #e4c88abe, #b9b6a076 23%, #adc0db60 100%);
+  box-shadow: 0 0 4px #efdbaa18;
+}
+.hoshikuzu-primitives .settings-section-heading h3 {
+  margin: 0;
+  color: #e9ecf4;
+  font-family: var(--hoshikuzu-settings-serif);
+  font-weight: 400;
+  font-size: clamp(17px, 1.38vw, 22px);
+  letter-spacing: 0.1em;
+}
+.hoshikuzu-primitives .settings-section-heading > span {
+  align-self: center;
+  margin-top: 4px;
+  color: #96accb;
+  font-family: Georgia, serif;
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.1em;
+}
+.hoshikuzu-primitives .settings-section-body {
+  padding-left: 36px;
+}
+.hoshikuzu-primitives .settings-control-row,
+.hoshikuzu-primitives .settings-slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+  margin-top: 18px;
+  min-height: 44px;
+}
+.hoshikuzu-primitives .settings-label {
+  display: block;
+  min-width: 0;
+  color: #e3e8f0;
+  font-family: var(--hoshikuzu-settings-serif);
+  font-size: clamp(14px, 1.12vw, 18px);
+  line-height: 1.4;
+}
+.hoshikuzu-primitives .settings-label small {
+  display: block;
+  margin-top: 4px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: #8a9fbd;
+  font-size: clamp(10px, 0.77vw, 12px);
+  line-height: 1.65;
+}
+.hoshikuzu-primitives .settings-quality {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 52%;
+  flex-shrink: 0;
+  border: 1px solid #9ab0d230;
+  border-radius: 3px;
+}
+.hoshikuzu-primitives .settings-quality button {
+  min-height: 39px;
+  padding: 8px 6px;
+  font-family: var(--hoshikuzu-settings-serif);
+  font-size: clamp(14px, 1.15vw, 18px);
+  color: #8fa5c3;
+  border: 1px solid transparent;
+}
+.hoshikuzu-primitives .settings-quality button + button {
+  border-left-color: #9ab0d230;
+}
+.hoshikuzu-primitives .settings-quality button.active {
+  position: relative;
+  color: #f1d493;
+  background: linear-gradient(135deg, #edd19820, #dec6900c);
+  border-color: #dec793af;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 0 2px #08132899,
+    0 0 14px #f5d18a17;
+  text-shadow: 0 0 12px #f4cc7773;
+}
+.hoshikuzu-primitives .settings-quality button:hover {
+  color: #f1d493;
+  background-color: #f4d7950c;
+}
+.hoshikuzu-primitives .settings-switch {
+  position: relative;
+  width: 62px;
+  height: 30px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid #a7b7d118;
+  border-radius: 30px;
+  background: #26364c7a;
+}
+.hoshikuzu-primitives .settings-switch-dot {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #efdbad;
+  transition: transform 0.25s;
+}
+.hoshikuzu-primitives .settings-switch-handle {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dec99094;
+  border-radius: 50%;
+  background: #19263c;
+  box-shadow: 0 0 10px #f5d59917;
+  transition: transform 0.25s;
+}
+.hoshikuzu-primitives .settings-switch-handle .settings-star {
+  width: 19px;
+  height: 19px;
+}
+.hoshikuzu-primitives .settings-switch.on {
+  border-color: #dec79373;
+  background: #dfc6881f;
+}
+.hoshikuzu-primitives .settings-switch.on .settings-switch-handle {
+  transform: translateX(32px);
+}
+.hoshikuzu-primitives .settings-switch.on .settings-switch-dot {
+  transform: translateX(-32px);
+}
+.hoshikuzu-primitives .settings-sound-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  color: #96accb;
+  font-size: 11px;
+}
+.hoshikuzu-primitives .settings-slider-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 29%) minmax(0, 1fr) 27px;
+  gap: 24px;
+}
+.hoshikuzu-primitives .settings-range {
+  position: relative;
+  display: block;
+  height: 36px;
+  min-width: 0;
+}
+.hoshikuzu-primitives .settings-range-track {
+  position: absolute;
+  top: 17px;
+  inset-inline: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #edce8e 0%,
+    #edce8e var(--range-value),
+    #8495b0b3 var(--range-value),
+    #8495b0b3 100%
+  );
+}
+.hoshikuzu-primitives .settings-range-ticks {
+  position: absolute;
+  inset: -1px -2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hoshikuzu-primitives .settings-range-ticks i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #8495b0;
+}
+.hoshikuzu-primitives .settings-range-ticks i.lit {
+  background: #f5dca3;
+}
+.hoshikuzu-primitives .settings-range-star {
+  position: absolute;
+  left: var(--range-value);
+  top: 1px;
+  width: 25px;
+  height: 25px;
+  transform: translate(-50%, -50%);
+}
+.hoshikuzu-primitives .settings-range input {
+  position: absolute;
+  inset: 0 -12px;
+  margin: 0;
+  width: calc(100% + 24px);
+  height: 36px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.hoshikuzu-primitives .settings-range input::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+}
+.hoshikuzu-primitives .settings-range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -11px;
+  border: 0;
+  background: transparent;
+}
+.hoshikuzu-primitives .settings-range input::-moz-range-track {
+  height: 2px;
+  background: transparent;
+}
+.hoshikuzu-primitives .settings-range input::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: transparent;
+}
+.hoshikuzu-primitives .settings-range input:focus-visible {
+  outline-offset: 3px;
+  outline-width: 1px;
+  border-radius: 2px;
+}
+.hoshikuzu-primitives .settings-slider-row output {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: #f2d79b;
+  text-align: right;
+}
+.hoshikuzu-primitives .settings-system-note {
+  margin: 12px 0 0;
+  color: #c4b991;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.hoshikuzu-primitives .settings-display-row {
+  align-items: flex-start;
+}
+.hoshikuzu-primitives .settings-display-row .settings-label {
+  flex: 1;
+}
+.hoshikuzu-primitives .settings-fullscreen {
+  flex-shrink: 0;
+  padding: 0 0 4px 12px;
+  text-align: left;
+}
+.hoshikuzu-primitives .settings-fullscreen > span {
+  display: block;
+  font-family: var(--hoshikuzu-settings-serif);
+  font-size: clamp(14px, 1.12vw, 18px);
+}
+.hoshikuzu-primitives .settings-fullscreen b {
+  margin-left: 8px;
+  font-weight: 400;
+}
+.hoshikuzu-primitives .settings-fullscreen small {
+  display: block;
+  margin-top: 8px;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  color: #92a7c7;
+}
+@media (max-width: 950px) {
+  .hoshikuzu-primitives .settings-experience {
+    grid-template-columns: minmax(150px, 22%) minmax(0, 1fr);
+    gap: 22px;
+  }
+  .hoshikuzu-primitives .settings-intro h2 {
+    font-size: 29px;
+    letter-spacing: 0.1em;
+  }
+  .hoshikuzu-primitives .settings-section-heading {
+    gap: 10px;
+  }
+  .hoshikuzu-primitives .settings-section-body {
+    padding-left: 0;
+  }
+  .hoshikuzu-primitives .settings-pane {
+    padding: 23px;
+  }
+  .hoshikuzu-primitives .settings-control-row {
+    gap: 14px;
+  }
+  .hoshikuzu-primitives .settings-slider-row {
+    grid-template-columns: 120px minmax(0, 1fr) 24px;
+    gap: 18px;
+  }
+}
+@media (max-width: 720px) {
+  .hoshikuzu-primitives .modal-backdrop.settings-backdrop {
+    padding: 16px;
+  }
+  .hoshikuzu-primitives .modal-panel.settings-modal {
+    max-height: calc(100dvh - 32px);
+  }
+  .hoshikuzu-primitives .settings-experience {
+    display: block;
+  }
+  .hoshikuzu-primitives .settings-intro {
+    padding: 10px 14px 23px;
+  }
+  .hoshikuzu-primitives .settings-kicker {
+    margin-bottom: 10px;
+  }
+  .hoshikuzu-primitives .settings-intro h2 {
+    font-size: 32px;
+  }
+  .hoshikuzu-primitives .settings-english {
+    margin-top: 10px;
+  }
+  .hoshikuzu-primitives .settings-intro-rule {
+    margin: 18px 0 12px;
+  }
+  .hoshikuzu-primitives .settings-poem {
+    font-size: 11px;
+  }
+  .hoshikuzu-primitives .settings-pane {
+    padding: 22px 20px;
+  }
+  .hoshikuzu-primitives .settings-section + .settings-section {
+    margin-top: 26px;
+  }
+  .hoshikuzu-primitives .settings-section-heading {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hoshikuzu-primitives .settings-section-heading > .settings-star {
+    width: 19px;
+    height: 19px;
+  }
+  .hoshikuzu-primitives .settings-section-heading h3 {
+    font-size: 17px;
+  }
+  .hoshikuzu-primitives .settings-section-heading > span {
+    font-size: 8px;
+  }
+  .hoshikuzu-primitives .settings-sound-action {
+    gap: 6px;
+    font-size: 10px;
+  }
+  .hoshikuzu-primitives .settings-control-row:first-child {
+    flex-wrap: wrap;
+  }
+  .hoshikuzu-primitives .settings-quality {
+    width: 100%;
+  }
+  .hoshikuzu-primitives .settings-control-row,
+  .hoshikuzu-primitives .settings-slider-row {
+    margin-top: 17px;
+  }
+  .hoshikuzu-primitives .settings-slider-row {
+    grid-template-columns: minmax(0, 1fr) 27px;
+    gap: 8px 20px;
+  }
+  .hoshikuzu-primitives .settings-slider-row .settings-label {
+    grid-column: 1 / -1;
+  }
+  .hoshikuzu-primitives .settings-range {
+    grid-column: 1;
+  }
+  .hoshikuzu-primitives .settings-display-row {
+    gap: 20px;
+  }
+  .hoshikuzu-primitives .settings-display-row .settings-label {
+    flex-basis: 100%;
+  }
+}
+
+.hoshikuzu-primitives .settings-experience { overscroll-behavior: contain; }
+.hoshikuzu-primitives [data-reduced="true"] .settings-star { animation: none; }
+.hoshikuzu-primitives [data-reduced="true"] .settings-switch-dot,
+.hoshikuzu-primitives [data-reduced="true"] .settings-switch-handle { transition: none; }

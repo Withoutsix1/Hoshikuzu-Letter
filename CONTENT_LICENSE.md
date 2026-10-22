@@ -22,6 +22,9 @@
 | `src/ui-primitives/Meteors.tsx` | 根据容器尺寸与质量设置绘制流星 |
 | `src/ui-primitives/ReadingModeControls.tsx` | 受控的阅读样式切换按钮 |
 | `src/ui-primitives/visualTypes.ts` | 独立的视觉质量类型 |
+| `src/ui-primitives/preferences.ts` | 偏好类型、默认值与输入校验 |
+| `src/ui-primitives/SettingsPanel.tsx` | 受控的偏好面板、星形开关与滑块 |
+| `src/ui-primitives/SettingsModal.tsx` | 支持焦点循环和退出清理的原生设置弹窗 |
 | `src/ui-primitives/styles.css` | 上述组件使用的独立样式与程序动效 |
 | `src/ui-primitives/index.ts` | 模块导出入口 |
 | `src/README.md` | 随代码提供的接口与使用说明 |
