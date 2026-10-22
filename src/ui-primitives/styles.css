@@ -1,0 +1,387 @@
+/* MIT License; copyright (c) 2026 星屑信项目贡献者. */
+.hoshikuzu-primitives { font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; color: #f4f1ea; font-synthesis: none; }
+.hoshikuzu-primitives, .hoshikuzu-primitives *, .hoshikuzu-primitives *::before, .hoshikuzu-primitives *::after { box-sizing: border-box; }
+.hoshikuzu-primitives .menu-button, .hoshikuzu-primitives .letter-mode-controls button { font: inherit; cursor: pointer; border: 0; background: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.hoshikuzu-primitives .menu-button:focus-visible, .hoshikuzu-primitives .letter-mode-controls button:focus-visible { outline: 2px solid #e8cf91; outline-offset: 5px; }
+.hoshikuzu-primitives .menu-button:disabled { cursor: default; opacity: .5; }
+.hoshikuzu-primitives .menu-star-svg, .hoshikuzu-primitives .story-star-svg { display: block; }
+.hoshikuzu-primitives .thread-interaction-plane { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hoshikuzu-primitives .menu-button {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 12px 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  color: #8392a5;
+  text-align: left;
+}
+.hoshikuzu-primitives .menu-button:hover {
+  color: #8392a5;
+}
+.hoshikuzu-primitives .menu-number {
+  font-family: Georgia, serif;
+  font-size: 8px;
+  color: #627089;
+}
+.hoshikuzu-primitives .menu-star {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-star-svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+}
+.hoshikuzu-primitives .menu-star-halo {
+  position: absolute;
+  inset: -15px;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-star-halo-breath {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    #fff4c58c 0,
+    #ffdb8775 17%,
+    #f5b9474f 30%,
+    #df963924 50%,
+    transparent 70%
+  );
+  animation: hoshikuzu-primitives-menu-glow-breathe 3.2s ease-in-out infinite;
+}
+.hoshikuzu-primitives .menu-star-light-breath {
+  animation: hoshikuzu-primitives-menu-light-breathe 3.2s ease-in-out infinite;
+  filter: brightness(1.5);
+}
+.hoshikuzu-primitives .menu-charge-ring {
+  fill: none;
+  stroke: #fff0b7;
+  stroke-width: 0.95;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 2px #ffdf87) drop-shadow(0 0 5px #ffbd6988);
+}
+.hoshikuzu-primitives .menu-charge-head {
+  fill: #fffce7;
+  filter: drop-shadow(0 0 3px #ffe5a0);
+}
+.hoshikuzu-primitives .menu-star-halo-breath,
+.hoshikuzu-primitives .menu-star-light-breath {
+  animation-play-state: paused;
+}
+.hoshikuzu-primitives .is-lit .menu-star-halo-breath,
+.hoshikuzu-primitives .is-lit .menu-star-light-breath {
+  animation-play-state: running;
+}
+.hoshikuzu-primitives .menu-content {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 11px;
+}
+.hoshikuzu-primitives .menu-text {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+  width: 100%;
+  position: relative;
+  padding: 0;
+  white-space: nowrap;
+}
+.hoshikuzu-primitives .menu-underline {
+  position: absolute;
+  left: -22px;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-line-idle,
+.hoshikuzu-primitives .menu-line-lit {
+  position: absolute;
+  inset: 0;
+}
+.hoshikuzu-primitives .menu-line-idle {
+  background: linear-gradient(90deg, #b7985233, #d4bb6e1a 65%, #d4bb6e08);
+}
+.hoshikuzu-primitives .menu-line-lit {
+  background: linear-gradient(90deg, #fff8df, #ffe5a1 40%, #e8b85d);
+  filter: drop-shadow(0 0 3px #ffe098) drop-shadow(0 0 7px #ffbe7299);
+}
+.hoshikuzu-primitives .menu-line-lit::after {
+  content: "";
+  position: absolute;
+  inset: -2px 0;
+  background: #ffd7748a;
+  filter: blur(3px);
+}
+.hoshikuzu-primitives .menu-line-tip {
+  position: absolute;
+  top: -4px;
+  margin-left: -7px;
+  width: 14px;
+  height: 9px;
+  background: radial-gradient(
+    ellipse,
+    #fffdf3 0,
+    #ffedb5b0 15%,
+    #ffce7655 40%,
+    transparent 70%
+  );
+}
+.hoshikuzu-primitives .menu-underline::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -3px;
+  width: 6px;
+  height: 7px;
+  background: radial-gradient(
+    ellipse,
+    #fff3bc 0,
+    #efbe6a88 20%,
+    transparent 65%
+  );
+  opacity: 0.15;
+  transition: opacity 0.46s;
+}
+.hoshikuzu-primitives .is-lit .menu-underline::before {
+  opacity: 0.85;
+}
+.hoshikuzu-primitives .menu-word,
+.hoshikuzu-primitives .menu-subtitle {
+  position: relative;
+  display: inline-block;
+}
+.hoshikuzu-primitives .menu-color-sweep {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: baseline;
+  gap: inherit;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-text .menu-color-wave {
+  background: linear-gradient(90deg, #fff7e3 0%, #ffe2a0 48%, #e8bf77 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-text strong {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  color: inherit;
+}
+.hoshikuzu-primitives .menu-text small {
+  font-size: 8px;
+  color: #687991;
+}
+@keyframes hoshikuzu-primitives-menu-glow-breathe {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+@keyframes hoshikuzu-primitives-menu-light-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.hoshikuzu-primitives.ambient-paused .menu-star-halo-breath,
+.hoshikuzu-primitives.ambient-paused .menu-star-light-breath {
+  animation-play-state: paused;
+}
+/* Motion owns hover progress. CSS breathing runs only on nested light layers. */
+/* Kept separate from the SVG core, underline mask and the 1px text transform. */
+.hoshikuzu-primitives .menu-starburst {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .menu-burst-shard {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px #fff096) drop-shadow(0 0 8px #ffc52de0);
+}
+.hoshikuzu-primitives .menu-burst-shard > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fffde1, #ffe46c 45%, #ffc62a);
+}
+
+.hoshikuzu-primitives .story-star-plane {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .story-star {
+  position: absolute;
+  width: clamp(24px, 3.2vw, 40px);
+  height: clamp(24px, 3.2vw, 40px);
+  transform: translate(-50%, -50%);
+}
+.hoshikuzu-primitives .story-star-breath {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: hoshikuzu-primitives-story-star-breathe 3.2s ease-in-out infinite;
+  animation-delay: var(--star-delay);
+}
+.hoshikuzu-primitives .story-star-halo {
+  position: absolute;
+  inset: -15px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--star-glow) 58%, transparent),
+    color-mix(in srgb, var(--star-glow) 28%, transparent) 25%,
+    transparent 67%
+  );
+}
+.hoshikuzu-primitives .story-star-svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 2px var(--star-glow))
+    drop-shadow(0 0 7px var(--star-glow));
+}
+@keyframes hoshikuzu-primitives-story-star-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+.hoshikuzu-primitives.ambient-paused .story-star-breath {
+  animation-play-state: paused;
+}
+
+.hoshikuzu-primitives .meteor-plane {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hoshikuzu-primitives .meteor-track {
+  position: absolute;
+  opacity: 0;
+  animation: hoshikuzu-primitives-meteor-flight 12s linear infinite;
+}
+.hoshikuzu-primitives .meteor-streak {
+  position: absolute;
+  width: clamp(90px, 16vw, 220px);
+  height: 1.2px;
+  transform: rotate(var(--meteor-angle, -29deg));
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    #fff,
+    var(--meteor-color) 10%,
+    transparent
+  );
+  filter: drop-shadow(0 0 4px var(--meteor-color));
+}
+.hoshikuzu-primitives .meteor-streak::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fffdf4;
+  box-shadow: 0 0 8px 2px var(--meteor-color);
+}
+@keyframes hoshikuzu-primitives-meteor-flight {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  3% {
+    opacity: 0.95;
+  }
+  18% {
+    opacity: 0.6;
+  }
+  22% {
+    opacity: 0;
+    transform: translate(var(--meteor-travel-x), var(--meteor-travel-y));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--meteor-travel-x), var(--meteor-travel-y));
+  }
+}
+.hoshikuzu-primitives.ambient-paused .meteor-track {
+  animation-play-state: paused;
+}
+.hoshikuzu-primitives .letter-mode-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 16px 0 0;
+  font-size: 10px;
+  color: #bcbbaa;
+}
+.hoshikuzu-primitives .letter-mode-controls > span {
+  margin-right: 7px;
+}
+.hoshikuzu-primitives .letter-mode-controls button {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 15px;
+  border: 1px solid #dce8ff26;
+  border-radius: 3px;
+  color: #b2c0d5;
+  background: #0e1a2c;
+}
+.hoshikuzu-primitives .letter-mode-controls button small {
+  font-size: 8px;
+  opacity: 0.65;
+}
+.hoshikuzu-primitives .letter-mode-controls i {
+  font-style: normal;
+  color: #dbc28c;
+}
+.hoshikuzu-primitives .letter-mode-controls button[aria-pressed="true"] {
+  color: #ffe3ab;
+  border-color: #ecd09970;
+  background: #e4c18508;
+  box-shadow: 0 0 14px #f5c8780d;
+}
+
+.hoshikuzu-primitives .story-star[data-reduced="true"] .story-star-breath,
+.hoshikuzu-primitives .star-menu-button[data-reduced="true"] .menu-star-halo-breath,
+.hoshikuzu-primitives .star-menu-button[data-reduced="true"] .menu-star-light-breath { animation: none; }
+@media (max-width: 480px) {
+  .hoshikuzu-primitives .letter-mode-controls { gap: 8px; }
+  .hoshikuzu-primitives .letter-mode-controls > span { width: 100%; margin-bottom: 2px; }
+  .hoshikuzu-primitives .letter-mode-controls button { padding: 10px 12px; flex-wrap: wrap; }
+}

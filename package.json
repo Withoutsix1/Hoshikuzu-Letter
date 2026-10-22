@@ -1,6 +1,6 @@
 {
   "name": "@hoshikuzu-letter/ui-primitives",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Selected general UI primitives from Hoshikuzu Letter",
   "type": "module",
@@ -10,11 +10,12 @@
     ".": {
       "types": "./dist/ui-primitives/index.d.ts",
       "import": "./dist/ui-primitives/index.js"
-    }
+    },
+    "./styles.css": "./dist/ui-primitives/styles.css"
   },
   "scripts": {
     "check": "tsc --noEmit",
-    "build": "tsc"
+    "build": "node tools/build.mjs"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0",

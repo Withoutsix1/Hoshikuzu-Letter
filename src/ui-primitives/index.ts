@@ -7,3 +7,8 @@ export { ResourceProvider, useResource } from './resources.js';
 export { default as useStartTransition, startTransitionTiming } from './useStartTransition.js';
 export { ThreadInteraction, useBendingThread } from './ThreadInteraction.js';
 export { default as AnimatedThread } from './AnimatedThread.js';
+export { StarShapeDefinition, ConstantStar } from './StarGlyph.js';
+export { default as StarMenuButton } from './StarMenuButton.js';
+export { default as Meteors } from './Meteors.js';
+export { default as ReadingModeControls } from './ReadingModeControls.js';
+export type { Quality } from './visualTypes.js';

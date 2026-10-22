@@ -1,12 +1,12 @@
 # 通用 UI 模块
 
 本说明与 `ui-primitives/` 中的程序按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
-当前提供 9 个不依赖 Studio SDK 的独立模块，用于在其他界面中组合使用。
+当前提供 13 个不依赖 Studio SDK 的独立模块，附公共视觉类型和独立样式，用于在其他界面中组合使用。
 
 ## 安装与检查
 
 在仓库根目录运行 `npm ci`、`npm run check`、`npm run build`。
-产物位于 `dist/ui-primitives/`，不纳入 Git。React／React DOM 18 或 19、Motion 14 由使用该模块的应用提供；本仓库验证版本固定为 React／React DOM 19.3.0、Motion 14.0.0。
+JavaScript、类型声明和 `styles.css` 产物位于 `dist/ui-primitives/`，不纳入 Git。React／React DOM 18 或 19、Motion 14 由使用该模块的应用提供；本仓库验证版本固定为 React／React DOM 19.3.0、Motion 14.0.0。
 当前代码包设置为 `private`，用于本地集成，不会发布到包注册表。
 
 ## 接口
@@ -26,6 +26,11 @@
 | `startTransitionTiming` | 遮黑、渐亮、延迟聚焦与聚焦时长，单位为秒 |
 | `ThreadInteraction`、`useBendingThread(path)` | 用同一个指针监听与按需动画循环，轻微拨动子树内注册的曲线；禁用时还原路径 |
 | `AnimatedThread` | 根据 `drawn` MotionValue 绘制曲线，并在交互场内响应指针；`drawn=1` 时移除虚线 |
+| `StarShapeDefinition({ id })` | 在 SVG 的 `defs` 中定义星形；调用方提供唯一 `id`，使用 `0 0 96 96` 坐标系 |
+| `ConstantStar` | 按百分比位置、颜色、层次与延迟绘制装饰星；`reduced` 关闭入场渐变和 CSS 呼吸 |
+| `StarMenuButton` | 使用调用方提供的编号、标题、副标题与回调；`paused` 禁用按钮并重置充能，`reduced` 去除位移、呼吸与爆散 |
+| `Meteors({ quality, reduced })`、`Quality` | `high` 显示 3 条流星，`medium` 显示 2 条，`low`／`off` 或 `reduced=true` 时不渲染；随容器尺寸更新轨迹 |
+| `ReadingModeControls({ mode, change })` | 由调用方保存 `ReadingMode`，点击时请求切换 `normal`／`special`，同步显示 `aria-pressed` |
 
 交互 Hook 需要 React 和浏览器 DOM。`useFrameCovered` 不直接控制画面渲染，也不适用于服务端渲染。
 React 应用中的元素挂载后应通过状态更新传入实际 `HTMLElement`，而不是只修改一个不会触发重渲染的 ref。
@@ -99,7 +104,7 @@ function ThreadExample({ reduced }: { reduced: boolean }) {
 }
 ```
 
-交互场中的测量层需要由应用提供以下定位样式。曲线的颜色、粗细和其他外观由应用自行设置。
+导入下文的独立样式并将示例放入 `hoshikuzu-primitives` 容器后，测量层已具备必要定位。单独使用逻辑时，也可以自行提供以下样式。曲线的颜色、粗细和其他外观由应用设置。
 
 ```css
 .thread-interaction-plane {
@@ -125,4 +130,42 @@ function ThreadExample({ reduced }: { reduced: boolean }) {
 
 子组件通过 `useResource()` 取得对应的 `url` 和 `portal`；这里只传递容器，不自动创建 Portal。
 
-本批迁移保留现行工程的行为，仅对相对导入补充 NodeNext 所需的 `.js` 后缀。已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。真实浏览器布局、实际听感与 React 18 行为尚未单独验证，接入应用后应再检查。
+前两批通用逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。本轮的四个可视组件、曲线交互和画面切换另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效和样式隔离。实际听感、React 18 及其他浏览器行为尚未单独验证。
+
+## 独立视觉组件与样式
+
+在支持 CSS 导入的前端构建环境中，导入编译后的样式，并为使用这些组件的区域添加 `hoshikuzu-primitives` 容器。样式和动画名称均有命名范围，未附带外部字体、图片或音频文件。
+
+```tsx
+import './dist/ui-primitives/styles.css';
+import { useState } from 'react';
+import { ConstantStar, Meteors, ReadingModeControls, StarMenuButton, type ReadingMode } from './dist/ui-primitives/index.js';
+
+function VisualExample({ paused, reduced }: { paused: boolean; reduced: boolean }) {
+  const [mode, setMode] = useState<ReadingMode>('normal');
+  return (
+    <div className={`hoshikuzu-primitives ${paused ? 'ambient-paused' : ''}`}>
+      <div style={{ width: '100%', maxWidth: 320 }}>
+        <StarMenuButton number="01" label="PREVIEW" subtitle="预览"
+          paused={paused} reduced={reduced}
+          onHover={() => {}} onClick={() => { /* 打开应用自己的界面 */ }}
+          onCharged={() => { /* 单次充能完成 */ }} />
+      </div>
+      <div aria-hidden="true" style={{ position: 'relative', height: 220 }}>
+        <ConstantStar starId="example-blue" color="#8dbdff" white
+          x={45} y={50} layer={0} delay={0} reduced={reduced} />
+        <Meteors quality="high" reduced={reduced} />
+      </div>
+      <ReadingModeControls mode={mode} change={setMode} />
+    </div>
+  );
+}
+```
+
+包路径方式也可使用 `@hoshikuzu-letter/ui-primitives/styles.css`；该导出指向同一份构建样式。页面整体布局、背景与组件尺寸由应用提供。装饰星和流星的父层需要相对定位和非零尺寸。
+
+`StarMenuButton` 的 `onClick` 负责实际操作；充能只触发可选的 `onCharged`，不会代替点击。触摸点击可以激活按钮，不触发悬停充能。组件使用 `type="button"`，放入表单不会提交。
+
+暂停时，将 `paused` 传给菜单按钮，并为容器添加 `ambient-paused` 类以暂停装饰星与流星的 CSS 动画。减少动效时，将 `reduced` 同时传给相关组件；应用可根据自己的设置或 `prefers-reduced-motion` 决定此值。
+
+这批组件为独立使用增加了按钮类型、暂停禁用与减少动效属性；流星的质量类型已从原先混合数据模型中单独提取。未迁入完整标题菜单布局或剧情阶段数据。

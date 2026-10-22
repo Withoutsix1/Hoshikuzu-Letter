@@ -17,11 +17,18 @@
 | `src/ui-primitives/useStartTransition.ts` | 可取消、避免重复启动的画面切换 Hook |
 | `src/ui-primitives/ThreadInteraction.tsx` | 指针拨动曲线的共享交互场与 Hook |
 | `src/ui-primitives/AnimatedThread.tsx` | 可绘制、可弯曲的 SVG 曲线组件 |
+| `src/ui-primitives/StarGlyph.tsx` | SVG 星形定义与可配置的装饰星 |
+| `src/ui-primitives/StarMenuButton.tsx` | 支持指针、键盘和充能反馈的星形菜单按钮 |
+| `src/ui-primitives/Meteors.tsx` | 根据容器尺寸与质量设置绘制流星 |
+| `src/ui-primitives/ReadingModeControls.tsx` | 受控的阅读样式切换按钮 |
+| `src/ui-primitives/visualTypes.ts` | 独立的视觉质量类型 |
+| `src/ui-primitives/styles.css` | 上述组件使用的独立样式与程序动效 |
 | `src/ui-primitives/index.ts` | 模块导出入口 |
 | `src/README.md` | 随代码提供的接口与使用说明 |
+| `tools/build.mjs`、`tools/README.md` | 代码编译、样式复制及工具使用说明 |
 | `package.json`、`package-lock.json`、`tsconfig.json` | 代码包、依赖锁定与类型检查／编译配置 |
 
-未列入的文件不因位于本仓库而自动采用 MIT。`tools/` 当前仅有预留说明，没有已开放的软件工具。
+未列入的文件不因位于本仓库而自动采用 MIT。
 第三方依赖遵循自身许可；Studio SDK、默认模板与运行时不在本项目的 MIT 授权范围内。
 
 ## 游戏创作内容与项目文档
