@@ -1,0 +1,167 @@
+{
+  "version": 2,
+  "name": "星屑信 · 普通信笺",
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "elements": [
+    {
+      "id": "dialogue-backdrop",
+      "refId": "dialogue-backdrop",
+      "type": "dialogue-backdrop",
+      "name": "舞台遮罩",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1920,
+        "h": 1080
+      },
+      "anchor": "c",
+      "style": {
+        "fill": "#000000",
+        "opacity": 0
+      },
+      "props": {}
+    },
+    {
+      "id": "dialogue-frame",
+      "refId": "dialogue-frame",
+      "type": "dialogue-frame",
+      "name": "框体背景",
+      "rect": {
+        "x": 365,
+        "y": 698,
+        "w": 1190,
+        "h": 315
+      },
+      "anchor": "tl",
+      "style": {
+        "fill": "#f0e7d5",
+        "borderColor": "#d3bf91",
+        "borderWidth": 1,
+        "radius": 4,
+        "opacity": 100,
+        "customCss": "box-shadow:0 8px 40px #0005; background-image:repeating-linear-gradient(0deg,transparent 0px,transparent 32px,#b7a77920 33px),radial-gradient(ellipse at 20% 20%,#ffffff88,transparent 70%);"
+      },
+      "props": {
+        "runtimeOverride": false,
+        "backgroundImage": "",
+        "backgroundImageFit": "stretch",
+        "backgroundImagePosition": "center",
+        "backgroundImageRepeat": "no-repeat",
+        "linearGradient": {
+          "enabled": false
+        },
+        "frameDecoration": {
+          "boxShadow": "0 8px 40px #0005"
+        }
+      }
+    },
+    {
+      "id": "dialogue-text",
+      "refId": "dialogue-text",
+      "type": "dialogue-text",
+      "name": "对白文本",
+      "rect": {
+        "x": 420,
+        "y": 795,
+        "w": 1080,
+        "h": 175
+      },
+      "anchor": "tl",
+      "style": {
+        "fontFamily": "\"Microsoft YaHei\", \"PingFang SC\", serif",
+        "fontSize": 28,
+        "fontWeight": 500,
+        "color": "#443d36",
+        "letterSpacing": 1.2,
+        "textAlign": "left",
+        "opacity": 100
+      },
+      "props": {
+        "lineHeight": 1.9,
+        "textShadows": [],
+        "previewText": "这是界面预览文本。"
+      }
+    },
+    {
+      "id": "dialogue-name",
+      "refId": "dialogue-name",
+      "type": "dialogue-name",
+      "name": "角色名",
+      "rect": {
+        "x": 422,
+        "y": 731,
+        "w": 500,
+        "h": 50
+      },
+      "anchor": "tl",
+      "style": {
+        "fontFamily": "\"Microsoft YaHei\", \"PingFang SC\", serif",
+        "fontSize": 29,
+        "fontWeight": 600,
+        "color": "#695738",
+        "fill": "transparent",
+        "borderColor": "transparent",
+        "borderWidth": 0,
+        "radius": 0,
+        "letterSpacing": 1.36,
+        "textAlign": "left",
+        "opacity": 100
+      },
+      "props": {
+        "backgroundImage": "",
+        "backgroundImageFit": "stretch",
+        "backgroundImagePosition": "center",
+        "backgroundImageRepeat": "no-repeat",
+        "linearGradient": {
+          "enabled": false,
+          "angle": 180,
+          "startColor": "transparent",
+          "endColor": "transparent"
+        },
+        "frameDecoration": {
+          "borderTop": "",
+          "borderRight": "",
+          "borderBottom": "",
+          "borderLeft": "",
+          "borderRadius": "",
+          "boxShadow": ""
+        },
+        "lineHeight": 1.5,
+        "textShadows": [],
+        "previewName": "示例角色"
+      }
+    },
+    {
+      "id": "dialogue-wait-cursor",
+      "refId": "dialogue-wait-cursor",
+      "type": "dialogue-wait-cursor",
+      "name": "等待提示",
+      "rect": {
+        "x": 1470,
+        "y": 940,
+        "w": 32,
+        "h": 32
+      },
+      "anchor": "tl",
+      "style": {
+        "color": "#99762f",
+        "opacity": 0
+      },
+      "props": {
+        "source": "legacy",
+        "imageAsset": "",
+        "shape": "diamond",
+        "accentColor": "#b58d44",
+        "animation": "none",
+        "durationMs": 1000
+      },
+      "hidden": true
+    }
+  ],
+  "dialogueBehavior": {
+    "text_speed": 30
+  }
+}

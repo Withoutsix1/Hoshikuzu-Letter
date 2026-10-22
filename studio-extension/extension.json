@@ -1,0 +1,25 @@
+{
+  "id": "hoshikuzu.ui",
+  "name": "星屑信 UI",
+  "description": "星屑信独立游戏界面：星图标题、信笺存读档、设置、历史、画廊与感谢信。",
+  "author": "星屑信项目贡献者",
+  "version": "0.3.16-public.1",
+  "sdkVersion": ">=1.9.9",
+  "entry": "dist/index.js",
+  "contributes": {
+    "dialogueBoxStyles": [
+      {
+        "id": "letter-normal",
+        "name": "星屑信 · 普通信笺",
+        "visualUI": "dialogue-normal",
+        "dialogueBox": {}
+      },
+      {
+        "id": "letter-special",
+        "name": "星屑信 · 特殊来信",
+        "visualUI": "dialogue-special",
+        "dialogueBox": {}
+      }
+    ]
+  }
+}

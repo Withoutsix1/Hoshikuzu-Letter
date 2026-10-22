@@ -41,3 +41,6 @@ reference/
 # Music remains closed until individually reviewed; images are not globally ignored.
 /music-preview/*
 !/music-preview/README.md
+
+# Generated stylesheet for the complete extension source package.
+/studio-extension/src/theme.css

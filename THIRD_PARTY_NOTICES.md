@@ -20,7 +20,19 @@
 | `csstype` | 3.2.3 | React 类型定义的间接依赖 | MIT |
 | `typescript` | 5.9.3 | 类型检查和编译 | Apache-2.0 |
 
-版本和来源固定在 `package-lock.json`；原始许可证随各依赖包提供。React 18 的实际交互行为尚未单独验证。
+完整 Studio 源码包另使用以下依赖，均依据本机对应包元数据和原许可证核对：
+
+| 包 | 验证版本 | 用途 | 原许可证 |
+| --- | --- | --- | --- |
+| `@tsparticles/engine`、`@tsparticles/slim`、`@tsparticles/effect-shadow` | 4.4.0 | 粒子与阴影效果 | MIT |
+| `animejs` | 4.5.0 | 因果路径交互 | MIT |
+| `html-to-image` | 1.11.13 | 阅读界面截图 | MIT |
+| `postcss` | 8.5.28 | 样式生成 | MIT |
+| `vite` | 7.3.6 | 扩展构建 | MIT |
+| `@vitejs/plugin-react` | 5.2.0 | React 构建支持 | MIT |
+| `@types/react-dom` | 19.3.0 | 开发时类型 | MIT |
+
+通用模块的版本和来源固定在根目录 `package-lock.json`，完整源码包使用 `studio-extension/package-lock.json`；原始许可证随各依赖包提供。完整扩展的本地构建脚本还会将运行依赖的许可证复制到生成的 `dist/LICENSES/`，并生成索引；这些依赖文件和构建产物不纳入Git。React 18 的实际交互行为尚未单独验证。
 
 ## 角色展示图
 

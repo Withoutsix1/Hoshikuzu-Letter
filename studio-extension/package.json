@@ -1,0 +1,35 @@
+{
+  "name": "@hoshikuzu-letter/studio-extension",
+  "version": "0.3.16-public.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/project.mjs check",
+    "build": "node scripts/project.mjs build",
+    "theme": "node scripts/build-theme.mjs"
+  },
+  "dependencies": {
+    "@tsparticles/effect-shadow": "4.4.0",
+    "@tsparticles/engine": "4.4.0",
+    "@tsparticles/slim": "4.4.0",
+    "animejs": "4.5.0",
+    "motion": "14.0.0",
+    "html-to-image": "1.11.13"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1 || ^19.0.0",
+    "react-dom": "^18.3.1 || ^19.0.0"
+  },
+  "devDependencies": {
+    "postcss": "8.5.28",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "5.2.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  },
+  "license": "MIT",
+  "author": "星屑信项目贡献者"
+}

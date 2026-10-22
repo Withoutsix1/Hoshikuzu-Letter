@@ -40,6 +40,8 @@
 | `tools/build.mjs`、`tools/README.md` | 代码编译、样式复制及工具使用说明 |
 | `package.json`、`package-lock.json`、`tsconfig.json` | 代码包、依赖锁定与类型检查／编译配置 |
 
+`studio-extension/` 中的原创源程序、软件配置、UI布局、源样式、构建脚本及代码使用说明也按标准 MIT 授权；范围包括宿主接入程序，但不扩展至另行取得的 SDK、运行时或第三方依赖。该目录没有附带游戏媒体、完整剧情或实际存档。详细覆盖见 [代码迁移覆盖](CODE_MIGRATION.md)。
+
 未列入的文件不因位于本仓库而自动采用 MIT。
 第三方依赖遵循自身许可；Studio SDK、默认模板与运行时不在本项目的 MIT 授权范围内。
 
