@@ -1,7 +1,7 @@
 # 通用 UI 模块
 
 本说明与 `ui-primitives/` 中的程序按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
-当前提供 19 个不依赖 Studio SDK 的独立模块，附公共视觉与展示数据类型和独立样式，用于在其他界面中组合使用。
+当前提供 22 个不依赖 Studio SDK 的独立模块，附公共视觉与展示数据类型和独立样式，用于在其他界面中组合使用。
 
 ## 安装与检查
 
@@ -38,6 +38,9 @@ JavaScript、类型声明和 `styles.css` 产物位于 `dist/ui-primitives/`，�
 | `ArchiveFrame`、`ArchiveMode` | 受控的保存／读取模式、分页与暂停容器；由调用方提供卡片子元素 |
 | `MemoryCard`、`ArchiveEntry` | 展示时间、摘要和可选缩略图，通过 `activate` 请求应用处理操作 |
 | `MemoryThumbnail({ snapshot, alt })` | 显示调用方提供的缩略图；缺图或加载失败时显示程序占位图形 |
+| `Gallery`、`Artwork`、`ArtworkCategory`、`GalleryCategory` | 分类、分页和图片卡片；图片地址与文字由调用方提供 |
+| `ArtworkViewer({ artwork, close, reduced, number })` | 可独立使用的原生大图模态窗口 |
+| `GalleryImage({ src, alt, className, loading })` | 默认延迟加载图片；空地址或加载失败时显示带替代说明的占位 |
 
 交互 Hook 需要 React 和浏览器 DOM。`useFrameCovered` 不直接控制画面渲染，也不适用于服务端渲染。
 React 应用中的元素挂载后应通过状态更新传入实际 `HTMLElement`，而不是只修改一个不会触发重渲染的 ref。
@@ -137,7 +140,7 @@ function ThreadExample({ reduced }: { reduced: boolean }) {
 
 子组件通过 `useResource()` 取得对应的 `url` 和 `portal`；这里只传递容器，不自动创建 Portal。
 
-基础逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。可视组件、曲线交互、画面切换、设置面板、弹窗和存档展示组件另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效、样式隔离和焦点恢复。实际听感、React 18 及其他浏览器行为尚未单独验证。
+基础逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。可视组件、曲线交互、画面切换、设置面板、弹窗、存档展示和画廊组件另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效、样式隔离和焦点恢复。实际听感、React 18 及其他浏览器行为尚未单独验证。
 
 ## 独立视觉组件与样式
 
@@ -257,3 +260,39 @@ function ArchiveExample({ entries, pageCount, saveEnabled, paused, reduced, oper
 时间默认按 `zh-CN` 和 `Asia/Hong_Kong` 显示，可用 `locale`／`timeZone` 覆盖；无效日期显示“时间未知”，无效格式选项回退为 ISO 时间。缩略图直接使用调用方提供的地址，空值或加载失败时显示占位；更换为新地址后会重新加载。单独使用 `MemoryThumbnail` 时，父元素应提供相对定位及尺寸，也可用 `alt` 指定替代文字。
 
 边框由 CSS 绘制，不附带制作 PNG、截图或实际存档。持久化、截图生成、覆盖确认、保存失败处理与游戏恢复由应用实现；`saveEnabled` 只控制界面，应用仍应在执行回调时检查自己的保存条件。
+
+
+## 画廊与大图窗口
+
+`Gallery` 接受 `Artwork[]`，按 `scenery`（场景图）与 `cg`（剧情 CG）分类，每页显示最多两张卡片。图片对象包含唯一的 `id`、`title`、`en`（副标题）、`category`、`src`、`alt` 和 `description`。文字按普通文本显示，地址直接交给浏览器加载；可传入应用自己的资源地址。
+
+```tsx
+import './dist/ui-primitives/styles.css';
+import { Gallery, type Artwork } from './dist/ui-primitives/index.js';
+
+function GalleryExample({ artworks, paused, reduced }: {
+  artworks: Artwork[];
+  paused: boolean;
+  reduced: boolean;
+}) {
+  return (
+    <div className="hoshikuzu-primitives">
+      <Gallery artworks={artworks} paused={paused} reduced={reduced}
+        open={artwork => { /* 图片窗口已请求打开，可记录浏览事件 */ }}
+        hover={() => { /* 可选的界面提示反馈 */ }} />
+    </div>
+  );
+}
+```
+
+分类与页码由组件维护，切换分类回到第一页；数据减少时自动收敛到有效页，正在查看的图片被移除时卸载大图窗口。页码超过7页时使用首尾及当前页附近的有限按钮窗口。`reservedPerCategory` 默认为0，不创建待收录槽位；需要占位时可传正整数，每类最多预留1000个。空列表显示空态和第1/1页。图片ID应在当前列表内唯一，传入的数据应只包含应用允许展示的图片。
+
+`onReturn` 可选，传入后显示返回按钮。`open(artwork)` 通知图片打开请求，窗口由组件自身呈现；`hover` 用于分类/分页反馈及非触摸指针悬停。`paused` 禁用画廊的卡片、分类、页码和返回操作，并暂停装饰动画；已打开的大图仍可关闭。`reduced` 关闭装饰呼吸、图片缩放与界面过渡。视口不超过800px时按单列排版。
+
+大图窗口也可单独使用：条件渲染 `ArtworkViewer`，在 `close` 回调中将其移除。`number` 为从1开始的展示编号，默认1。窗口需要原生 `dialog.showModal()`；打开后背景不可操作，初始焦点位于关闭按钮，Tab与Shift+Tab在关闭按钮及可滚动面板之间循环。Escape、关闭按钮或背景点击发出一次关闭通知，减少动效时立即关闭，其他情况等待退出动画。
+
+设置与大图窗口共用按文档计数的滚动锁：嵌套窗口关闭后，底层窗口仍保持锁定；最后一层关闭或外部卸载会恢复原滚动设置，并按条件返回仍存在的焦点。说明较长时可滚动查看，关闭按钮保持在顶部。
+
+`GalleryImage` 可单独使用，`loading` 默认为 `lazy`，大图窗口采用 `eager`。缺少地址或加载失败时显示“图片暂不可用”和替代说明；更换地址后重新加载。独立使用时由应用提供尺寸及样式。`modalLifecycle.ts` 为组件内部共用辅助程序，不从公共入口导出。
+
+本组组件只提供浏览界面，不包含游戏图片、解锁条件、资源目录或SDK。图片权利与可展示范围、解锁状态和图片地址由应用管理。

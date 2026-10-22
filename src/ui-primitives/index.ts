@@ -19,3 +19,7 @@ export { default as ArchiveFrame } from './ArchiveFrame.js';
 export { default as MemoryCard } from './MemoryCard.js';
 export { default as MemoryThumbnail } from './MemoryThumbnail.js';
 export type { ArchiveEntry, ArchiveMode } from './archiveTypes.js';
+export { default as Gallery } from './Gallery.js';
+export { default as ArtworkViewer } from './ArtworkViewer.js';
+export { default as GalleryImage } from './GalleryImage.js';
+export type { Artwork, ArtworkCategory, GalleryCategory } from './galleryTypes.js';

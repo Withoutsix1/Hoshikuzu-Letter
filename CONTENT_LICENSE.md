@@ -29,6 +29,11 @@
 | `src/ui-primitives/MemoryCard.tsx` | 由调用方提供数据与操作的信笺卡片 |
 | `src/ui-primitives/MemoryThumbnail.tsx` | 支持缺图与加载失败回退的缩略图 |
 | `src/ui-primitives/archiveTypes.ts` | 存档模式与展示记录类型，不包含游戏进度 |
+| `src/ui-primitives/Gallery.tsx` | 由调用方提供图片的分类、分页与图景卡片界面 |
+| `src/ui-primitives/ArtworkViewer.tsx` | 支持键盘、焦点返回与滚动恢复的原生大图窗口 |
+| `src/ui-primitives/GalleryImage.tsx` | 图片展示与加载失败占位 |
+| `src/ui-primitives/galleryTypes.ts` | 图片和画廊分类的展示类型 |
+| `src/ui-primitives/modalLifecycle.ts` | 设置与大图窗口共用的焦点筛选和滚动锁辅助程序 |
 | `src/ui-primitives/styles.css` | 上述组件使用的独立样式与程序动效 |
 | `src/ui-primitives/index.ts` | 模块导出入口 |
 | `src/README.md` | 随代码提供的接口与使用说明 |
