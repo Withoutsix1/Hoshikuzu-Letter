@@ -17,6 +17,11 @@
 
 版本和来源固定在 `package-lock.json`；原始许可证随各依赖包提供。React 18 的实际交互行为尚未单独验证。
 
+## 角色展示图
+
+本仓库的四张角色展示图由项目作者声明为原创，使用 image2.5 与 Nano Banana 官方服务交替完成。
+逐文件来源说明见 [ASSET_REGISTER.md](ASSET_REGISTER.md)，图片遵循 [CONTENT_LICENSE.md](CONTENT_LICENSE.md) 的项目内容规则，不采用代码的 MIT License。
+
 ## LetsGal Studio
 
 《星屑信》使用 LetsGal Studio 制作。软件本体、SDK、专有运行时、默认模板、默认资源及第三方扩展的权利归各自权利人所有。

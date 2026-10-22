@@ -1,10 +1,14 @@
 # Public Asset Register / 已公开素材登记
 
-当前登记数量：**0**。本地公开准备目录尚未加入故事片段、人物简介、展示图、音乐、配音或音效。
-占位说明不是已审核游戏素材；本文也不表示已在 GitHub 发布。
+当前登记数量：**4 张标准立绘展示图**。来源根据项目作者提供的信息登记，公开范围仅限表中选定的展示文件。
 
-| 仓库文件路径 | 类别 | 来源／创作者 | 对外展示范围 | 独立再利用许可 | review_status | 核查日期 |
+| 仓库文件路径 | 类别 | 来源／创作者 | 对外展示范围 | 独立再利用许可 | review_status | 项目确认日期 |
 | --- | --- | --- | --- | --- | --- | --- |
+| [showcase/sprites/hina-standard.jpg](showcase/sprites/hina-standard.jpg) | 比叡雏标准立绘 | 《星屑信》项目原创；image2.5 / Nano Banana 官方服务 | 项目立绘展示版 | 未授权；非 MIT | approved | 2026-10-22 |
+| [showcase/sprites/shizuya-standard.jpg](showcase/sprites/shizuya-standard.jpg) | 椿静夜标准立绘 | 《星屑信》项目原创；image2.5 / Nano Banana 官方服务 | 项目立绘展示版 | 未授权；非 MIT | approved | 2026-10-22 |
+| [showcase/sprites/ruri-standard.jpg](showcase/sprites/ruri-standard.jpg) | 神崎琉璃标准立绘 | 《星屑信》项目原创；image2.5 / Nano Banana 官方服务 | 项目立绘展示版 | 未授权；非 MIT | approved | 2026-10-22 |
+| [showcase/sprites/kanade-standard.jpg](showcase/sprites/kanade-standard.jpg) | 雪丸奏标准立绘 | 《星屑信》项目原创；image2.5 / Nano Banana 官方服务 | 项目立绘展示版 | 未授权；非 MIT | approved | 2026-10-22 |
 
-仅在具体文件通过审核并实际加入后登记，`review_status` 必须为 `approved`。
-公开可访问不等于允许放入其他独立项目；这里不保存私有凭证路径、账号或订单信息。
+作者说明由两平台交替完成，未对单张图片作排他的平台归属；平台名称保留作者提供的口径。
+原始透明制作图、完整差分和制作记录不在公开范围内。本表不保存私有凭证路径、账号或订单信息。
+公开可访问不等于允许放入其他独立项目；具体权利边界及 AI 生成元素说明见 [CONTENT_LICENSE.md](CONTENT_LICENSE.md)。
