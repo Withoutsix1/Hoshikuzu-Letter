@@ -6,12 +6,20 @@
     "strict": true,
     "skipLibCheck": false,
     "types": [],
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "declaration": true,
     "rootDir": "src/ui-primitives",
     "outDir": "dist/ui-primitives",
     "noEmitOnError": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx"
   },
-  "include": ["src/ui-primitives/**/*.ts"]
+  "include": [
+    "src/ui-primitives/**/*.ts",
+    "src/ui-primitives/**/*.tsx"
+  ]
 }

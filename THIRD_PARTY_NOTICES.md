@@ -10,7 +10,12 @@
 
 | 包 | 本地验证版本 | 用途 | 原许可证 |
 | --- | --- | --- | --- |
-| `react` | 19.3.0 | 两个 Hook 的运行依赖；声明兼容 React 18／19 | MIT |
+| `react` | 19.3.0 | 组件与 Hook 的运行依赖；声明兼容 React 18／19 | MIT |
+| `react-dom` | 19.3.0 | React 的浏览器渲染与动画依赖 | MIT |
+| `scheduler` | 0.28.0 | React DOM 的间接依赖 | MIT |
+| `motion` | 14.0.0 | 画面切换与曲线动画 | MIT |
+| `framer-motion`、`motion-dom`、`motion-utils` | 14.0.0 | Motion 的间接依赖 | MIT |
+| `tslib` | 2.8.1 | Motion 的间接依赖 | 0BSD |
 | `@types/react` | 19.3.0 | 开发时类型定义 | MIT |
 | `csstype` | 3.2.3 | React 类型定义的间接依赖 | MIT |
 | `typescript` | 5.9.3 | 类型检查和编译 | Apache-2.0 |

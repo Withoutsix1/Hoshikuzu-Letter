@@ -2,3 +2,8 @@ export { useKeyboardNavigation } from './keyboardNavigation.js';
 export { useFrameCovered } from './frameActivity.js';
 export { isReadingMode, type ReadingMode } from './readingModes.js';
 export { STAR_FLARE_PATH, starRandom, irregularStar } from './starVisuals.js';
+export { setSoundscape, playSfx } from './audio.js';
+export { ResourceProvider, useResource } from './resources.js';
+export { default as useStartTransition, startTransitionTiming } from './useStartTransition.js';
+export { ThreadInteraction, useBendingThread } from './ThreadInteraction.js';
+export { default as AnimatedThread } from './AnimatedThread.js';

@@ -12,6 +12,11 @@
 | `src/ui-primitives/frameActivity.ts` | 多层界面的遮挡与暂停状态 Hook |
 | `src/ui-primitives/readingModes.ts` | 阅读模式类型与判断 |
 | `src/ui-primitives/starVisuals.ts` | 可复现随机数和星形轮廓生成 |
+| `src/ui-primitives/audio.ts` | 浏览器内合成的界面提示音与背景和音 |
+| `src/ui-primitives/resources.tsx` | React 资源路径与挂载容器上下文 |
+| `src/ui-primitives/useStartTransition.ts` | 可取消、避免重复启动的画面切换 Hook |
+| `src/ui-primitives/ThreadInteraction.tsx` | 指针拨动曲线的共享交互场与 Hook |
+| `src/ui-primitives/AnimatedThread.tsx` | 可绘制、可弯曲的 SVG 曲线组件 |
 | `src/ui-primitives/index.ts` | 模块导出入口 |
 | `src/README.md` | 随代码提供的接口与使用说明 |
 | `package.json`、`package-lock.json`、`tsconfig.json` | 代码包、依赖锁定与类型检查／编译配置 |
