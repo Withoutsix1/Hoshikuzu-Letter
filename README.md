@@ -10,7 +10,7 @@
 
 - 开发中，使用 LetsGal Studio 制作。
 - 首个公开目标：Day01 展示及后续免费试玩版本。
-- 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍及四位女主的标准立绘展示；完整游戏工程与媒体保持私有，尚无可运行游戏包。
+- 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和一张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有，尚无可运行游戏包。
 - `Hoshikuzu-Letter` 为暂用仓库名，不代表已确定正式外文名。
 
 ## 当前提供的内容
@@ -20,6 +20,7 @@
 - 已按 MIT 授权的 22 个独立模块：导航与层状态、阅读模式、星形生成、提示音合成、资源上下文、画面切换、曲线交互、星形菜单与装饰、流星、阅读控件、偏好校验、设置面板和弹窗、存档框架、信笺卡片与缩略图、画廊分类和大图查看，附独立样式。
 - 完整原创 Studio UI 扩展源码：标题、阅读、选项原型、工具栏、历史、粒子、宿主接入、截图与存读档等；见 [源码包说明](studio-extension/README.md)和[迁移覆盖](CODE_MIGRATION.md)。
 - 四位女主的标准立绘展示版：比叡雏、椿静夜、神崎琉璃、雪丸奏。
+- 两张春日校园背景，以及比叡雏课堂 CG 的缩小展示版。
 - 音乐展示暂缓；通过专项核查后才会增加。
 
 ## 角色展示
@@ -32,6 +33,16 @@
 
 当前开发版本的标准立绘，仅提供展示版。项目作者确认四图为原创，使用 image2.5 与 Nano Banana 官方服务交替完成。
 图片不属于 MIT 授权范围，未授予独立再利用许可；详见 [展示说明](showcase/README.md)、[素材登记](ASSET_REGISTER.md)及[内容授权范围](CONTENT_LICENSE.md)。
+
+## 场景与 CG 展示
+
+| 春日校门 | 晨光教室 |
+| :---: | :---: |
+| <img src="showcase/backgrounds/school-gate-morning.jpg" width="420" alt="春日校门背景展示版"> | <img src="showcase/backgrounds/classroom-morning.jpg" width="420" alt="晨光教室背景展示版"> |
+
+![比叡雏课堂 CG 展示版](showcase/cg/hina-classroom.jpg)
+
+当前开发版本画面，均为长边 1200 像素的展示版。项目作者确认背景与 CG 由 image2.5 / Nano Banana 官方服务创作，参考素材有权使用；未逐图划分平台。图片不适用 MIT，未授予独立再利用许可。详见[背景展示](showcase/backgrounds/README.md)、[CG 展示](showcase/cg/README.md)及[内容授权范围](CONTENT_LICENSE.md)。
 
 ## 公开范围与许可证
 

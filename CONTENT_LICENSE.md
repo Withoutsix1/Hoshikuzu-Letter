@@ -54,8 +54,8 @@ AI 生成内容中不受著作权保护的元素、第三方依法享有的权�
 
 当前公开的作品与人物介绍位于 `content-preview/story/`、`content-preview/characters/`，属于游戏创作内容，不适用 MIT；公开范围不包含完整剧本、内部人物档案或路线设定。
 
-当前选择公开的四位女主标准立绘展示版位于 `showcase/sprites/`，文字与图片的具体文件见 [ASSET_REGISTER.md](ASSET_REGISTER.md)。
-这些图片供本项目浏览展示，未授予独立再利用许可；原始透明制作图和完整差分不在公开范围内。
+当前选择公开的七张图片包括：`showcase/sprites/` 中四位女主标准立绘、`showcase/backgrounds/` 中两张校园背景、`showcase/cg/` 中一张课堂 CG。文字与图片的具体文件见 [ASSET_REGISTER.md](ASSET_REGISTER.md)。
+这些图片均为缩小的项目展示版，未授予独立再利用许可；原始制作图、分层文件和完整差分不在公开范围内。
 
 ## 第三方内容
 
