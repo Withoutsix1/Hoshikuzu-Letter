@@ -1,0 +1,30 @@
+{
+  "name": "@hoshikuzu-letter/ui-primitives",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Selected general UI primitives from Hoshikuzu Letter",
+  "type": "module",
+  "license": "MIT",
+  "author": "星屑信项目贡献者",
+  "exports": {
+    ".": {
+      "types": "./dist/ui-primitives/index.d.ts",
+      "import": "./dist/ui-primitives/index.js"
+    }
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "react": "19.3.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

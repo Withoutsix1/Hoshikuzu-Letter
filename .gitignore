@@ -1,0 +1,43 @@
+# Local development
+.env
+.env.*
+!.env.example
+node_modules/
+.cache/
+.tmp/
+tmp/
+logs/
+*.log
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+dist/
+build/
+coverage/
+
+# Private production, evidence, runtime and source history
+studio-project/
+production/
+private/
+rights-evidence/
+asset-production/
+assets-original/
+script-full/
+internal-notes/
+private-release-checks/
+Hoshikuzu-Letter-Production/
+.studio/
+.studio-history/
+sdk/
+reference/
+*.pem
+*.p12
+*.pfx
+*.key
+
+# Music remains closed until individually reviewed; images are not globally ignored.
+/music-preview/*
+!/music-preview/README.md
