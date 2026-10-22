@@ -388,7 +388,7 @@
 
 /* Standalone settings panel and native modal dialog. */
 .hoshikuzu-primitives { --hoshikuzu-settings-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; }
-.hoshikuzu-primitives .settings-back, .hoshikuzu-primitives .settings-switch, .hoshikuzu-primitives .settings-quality button, .hoshikuzu-primitives .settings-fullscreen { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; touch-action: manipulation; }
+.hoshikuzu-primitives .settings-back, .hoshikuzu-primitives .settings-switch, .hoshikuzu-primitives .settings-quality button, .hoshikuzu-primitives .settings-fullscreen { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .hoshikuzu-primitives .settings-back:focus-visible, .hoshikuzu-primitives .settings-switch:focus-visible, .hoshikuzu-primitives .settings-quality button:focus-visible, .hoshikuzu-primitives .settings-fullscreen:focus-visible, .hoshikuzu-primitives .settings-range input:focus-visible { outline: 2px solid #e8cf91; outline-offset: 4px; }
 .hoshikuzu-primitives .settings-fullscreen:disabled { cursor: default; opacity: .45; }
 .hoshikuzu-primitives .modal-backdrop.settings-backdrop { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; margin: 0; border: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; color: inherit; backdrop-filter: blur(8px); }
@@ -922,3 +922,499 @@
 .hoshikuzu-primitives [data-reduced="true"] .settings-star { animation: none; }
 .hoshikuzu-primitives [data-reduced="true"] .settings-switch-dot,
 .hoshikuzu-primitives [data-reduced="true"] .settings-switch-handle { transition: none; }
+
+/* Standalone archive display, with CSS frames and caller-supplied thumbnails. */
+.hoshikuzu-primitives { --hoshikuzu-archive-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; }
+.hoshikuzu-primitives .archive-mode, .hoshikuzu-primitives .archive-page-numbers button, .hoshikuzu-primitives .memory-card { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.hoshikuzu-primitives .archive-heading p, .hoshikuzu-primitives .archive-poem, .hoshikuzu-primitives .archive-side-poem { margin: 0; }
+.hoshikuzu-primitives .archive-frame {
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  pointer-events: none;
+  --archive-gold: #eed39b;
+}
+.hoshikuzu-primitives .archive-constellation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.hoshikuzu-primitives .archive-chain-breath {
+  animation: hoshikuzu-primitives-archive-chain-breathe 4.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px #f5d78f6b) drop-shadow(0 0 6px #edcc743d);
+}
+.hoshikuzu-primitives .archive-star {
+  filter: drop-shadow(0 0 3px #ffe0a1c2) drop-shadow(0 0 9px #e3bd7370);
+  animation: hoshikuzu-primitives-archive-star-breathe 4.2s ease-in-out infinite;
+}
+.hoshikuzu-primitives .archive-heading {
+  position: absolute;
+  left: 4.55%;
+  top: 10.3%;
+}
+.hoshikuzu-primitives .archive-eyebrow {
+  color: var(--archive-gold);
+  font-size: clamp(7px, 0.72cqw, 12px);
+  letter-spacing: 0.15em;
+  line-height: 1.5;
+}
+.hoshikuzu-primitives .archive-heading h3 {
+  font-family: var(--hoshikuzu-archive-serif);
+  color: #f5f0e8;
+  font-size: clamp(21px, 2.9cqw, 49px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: 0.035em;
+  margin: 0.17em 0 0.35em;
+  text-shadow: 0 0 12px #dce8ff16;
+}
+.hoshikuzu-primitives .archive-caption {
+  font-family: var(--hoshikuzu-archive-serif);
+  color: #a5b4c9;
+  font-size: clamp(7px, 0.88cqw, 15px);
+  line-height: 1.52;
+  letter-spacing: 0.025em;
+}
+.hoshikuzu-primitives .archive-poem,
+.hoshikuzu-primitives .archive-side-poem {
+  position: absolute;
+  font-family: var(--hoshikuzu-archive-serif);
+  font-size: clamp(7px, 0.85cqw, 14px);
+  color: #a0adc484;
+  line-height: 1.6;
+  letter-spacing: 0.055em;
+}
+.hoshikuzu-primitives .archive-poem {
+  left: 53.2%;
+  top: 8.8%;
+}
+.hoshikuzu-primitives .archive-side-poem {
+  left: 67.25%;
+  top: 6%;
+}
+.hoshikuzu-primitives .archive-modes {
+  position: absolute;
+  top: 16.55%;
+  right: 3.7%;
+  width: 17.4%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5cqw;
+  pointer-events: auto;
+}
+.hoshikuzu-primitives .archive-mode {
+  position: relative;
+  font-family: var(--hoshikuzu-archive-serif);
+  font-size: clamp(8px, 1.04cqw, 18px);
+  line-height: 1.2;
+  min-height: 4.55cqh;
+  padding: 0.45cqw 0.25cqw;
+  color: #aabbd3;
+  border: 1px solid #a2b4cf40;
+  border-radius: 999px;
+  transition:
+    color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.hoshikuzu-primitives .archive-mode.active {
+  color: #fff0c9;
+  border-color: #e2c487ad;
+  background: linear-gradient(180deg, #e7d7ac07, #e5c28727);
+  box-shadow:
+    inset 0 -3px 8px #e2c68712,
+    0 0 11px #e2c6870c;
+  text-shadow: 0 0 6px #f9de9570;
+}
+.hoshikuzu-primitives .archive-mode:hover:not(:disabled),
+.hoshikuzu-primitives .archive-mode:focus-visible:not(:disabled) {
+  color: #fff1ce;
+  border-color: #efd59bc2;
+  box-shadow: 0 0 9px #e8ce9133;
+}
+.hoshikuzu-primitives .archive-mode:focus-visible {
+  outline: 1px solid #f6e1b4;
+  outline-offset: 3px;
+}
+.hoshikuzu-primitives .archive-mode:disabled {
+  opacity: 0.35;
+  color: #aabbd3;
+  cursor: default;
+}
+.hoshikuzu-primitives .archive-mode-glint {
+  position: absolute;
+  right: 8%;
+  top: -0.43cqw;
+  width: 0.86cqw;
+  height: 0.86cqw;
+  min-width: 7px;
+  min-height: 7px;
+  fill: #ffeac0;
+  filter: drop-shadow(0 0 4px #ffe5a7b3);
+  animation: hoshikuzu-primitives-archive-star-breathe 4.2s ease-in-out infinite;
+}
+.hoshikuzu-primitives .archive-mode-dot {
+  position: absolute;
+  bottom: -2px;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  height: 3px;
+  transform: rotate(45deg);
+  background: #f5dda5;
+  box-shadow: 0 0 5px #ffd991;
+}
+.hoshikuzu-primitives .archive-page-numbers {
+  position: absolute;
+  left: 36.15%;
+  top: 87.9%;
+  width: 28.7%;
+  display: grid;
+  grid-template-columns: 0.5fr repeat(5, 1fr) 0.5fr;
+  align-items: center;
+  justify-items: center;
+  font-size: clamp(8px, 1.01cqw, 17px);
+  letter-spacing: 0.11em;
+  font-variant-numeric: tabular-nums;
+  color: #91a7c4;
+  line-height: 1.5;
+}
+.hoshikuzu-primitives .archive-page-numbers button {
+  position: relative;
+  color: inherit;
+  padding: 2px 5px;
+  min-height: 22px;
+  width: 100%;
+  font: inherit;
+  letter-spacing: inherit;
+  pointer-events: auto;
+}
+.hoshikuzu-primitives .archive-page-numbers .active {
+  color: #ffebbd;
+  text-shadow: 0 0 10px #fbd276a1;
+}
+.hoshikuzu-primitives .archive-page-numbers .active::before {
+  content: "";
+  position: absolute;
+  inset: -100% -130%;
+  background: radial-gradient(ellipse, #eac47e29, transparent 67%);
+  z-index: -1;
+  animation: hoshikuzu-primitives-archive-star-breathe 4.2s ease-in-out infinite;
+}
+.hoshikuzu-primitives .archive-page-numbers svg {
+  width: 0.72cqw;
+  min-width: 5px;
+  fill: none;
+  stroke: #edd39f;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hoshikuzu-primitives .archive-frame[data-paused="true"] .archive-chain-breath,
+.hoshikuzu-primitives .archive-frame[data-paused="true"] .archive-star,
+.hoshikuzu-primitives .archive-frame[data-paused="true"] .archive-mode-glint,
+.hoshikuzu-primitives .archive-frame[data-paused="true"] .archive-page-numbers .active::before {
+  animation-play-state: paused;
+}
+.hoshikuzu-primitives .archive-frame[data-reduced="true"] .archive-chain-breath,
+.hoshikuzu-primitives .archive-frame[data-reduced="true"] .archive-star,
+.hoshikuzu-primitives .archive-frame[data-reduced="true"] .archive-mode-glint,
+.hoshikuzu-primitives .archive-frame[data-reduced="true"] .archive-page-numbers .active::before {
+  animation: none;
+}
+.hoshikuzu-primitives .archive-frame[data-reduced="true"] .archive-mode {
+  transition: none;
+}
+@keyframes hoshikuzu-primitives-archive-chain-breathe {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes hoshikuzu-primitives-archive-star-breathe {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@container (max-width: 580px) {
+  .hoshikuzu-primitives .archive-heading {
+    top: 10%;
+  }
+  .hoshikuzu-primitives .archive-heading h3 {
+    font-size: 25px;
+    margin-bottom: 0.4em;
+  }
+  .hoshikuzu-primitives .archive-caption {
+    font-size: 9px;
+  }
+  .hoshikuzu-primitives .archive-eyebrow {
+    font-size: 8px;
+  }
+  .hoshikuzu-primitives .archive-poem {
+    left: 53%;
+    top: 10%;
+    font-size: 8px;
+    line-height: 1.8;
+  }
+  .hoshikuzu-primitives .archive-side-poem {
+    left: 58%;
+    top: 6.3%;
+    font-size: 7px;
+  }
+  .hoshikuzu-primitives .archive-modes {
+    top: 20.7%;
+    width: 43%;
+    gap: 7px;
+  }
+  .hoshikuzu-primitives .archive-mode {
+    font-size: 11px;
+    min-height: 27px;
+    padding: 4px;
+  }
+  .hoshikuzu-primitives .archive-page-numbers {
+    left: 23%;
+    width: 54%;
+    top: 88%;
+    font-size: 11px;
+  }
+  .hoshikuzu-primitives .archive-footer-chain-left {
+    d: path(
+      "M-15 788 C45 803 90 815 122 824 C231 839 315 832 380 836 C441 842 452 862 489 864 C508 865 536 865 560 864"
+    );
+  }
+  .hoshikuzu-primitives .archive-left-page-star {
+    transform: translateX(-150px);
+  }
+}
+
+.hoshikuzu-primitives .archive-page-numbers .archive-page-arrow {
+  display: grid;
+  place-items: center;
+}
+.hoshikuzu-primitives .archive-page-numbers button:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .archive-page-numbers button:not(:disabled):hover {
+  color: #fff0c1;
+  text-shadow: 0 0 8px #ffdf9ca1;
+}
+.hoshikuzu-primitives .archive-page-numbers button:focus-visible {
+  outline: 1px solid #e8cf919c;
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+.hoshikuzu-primitives .memory-card {
+  container-type: size;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  overflow: visible;
+  transition: filter 0.25s;
+}
+.hoshikuzu-primitives .memory-card:hover {
+  filter: drop-shadow(0 0 6px #c9af682e);
+}
+.hoshikuzu-primitives .memory-card.filled {
+  transform-origin: calc(25.75% - 1px) var(--memory-photo-pivot-y, 54.4%);
+}
+.hoshikuzu-primitives .memory-card:focus-visible {
+  outline: 1px solid #f0dba7;
+  outline-offset: 3px;
+}
+.hoshikuzu-primitives .memory-card:disabled {
+  opacity: 0.65;
+  filter: saturate(0.85);
+}
+.hoshikuzu-primitives .memory-card-topline {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  right: 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f0e7d4;
+  font-size: clamp(6px, 3cqw, 14px);
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+}
+.hoshikuzu-primitives .memory-card-topline time {
+  font-size: clamp(5px, 2.7cqw, 13px);
+  color: #c3d2e4c7;
+  letter-spacing: 0.025em;
+}
+.hoshikuzu-primitives .memory-photo {
+  position: absolute;
+  left: calc(13.1% - 1px);
+  top: 28.5%;
+  width: 25.3%;
+  aspect-ratio: 1;
+  transform: rotate(3.2deg);
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 97%, 0 97%);
+  background: #081329;
+}
+.hoshikuzu-primitives .memory-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+.hoshikuzu-primitives .memory-card-copy {
+  position: absolute;
+  top: 36.5%;
+  left: 45.5%;
+  right: 9%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.hoshikuzu-primitives .memory-card-copy strong {
+  font-size: clamp(8px, 4cqw, 21px);
+  font-family: var(--hoshikuzu-archive-serif);
+  color: #f3eee3;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  margin: 0 0 4%;
+}
+.hoshikuzu-primitives .memory-card-copy > span {
+  font-family: var(--hoshikuzu-archive-serif);
+  font-size: clamp(7px, 3.1cqw, 16px);
+  line-height: 1.6;
+  color: #c9d7e6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.hoshikuzu-primitives .memory-card-load {
+  position: absolute;
+  left: 75.25%;
+  top: 81.3%;
+  width: 19%;
+  height: 10.2%;
+  display: grid;
+  place-items: center;
+  color: #fff0c7;
+  font-family: Georgia, serif;
+  font-size: clamp(7px, 3.5cqw, 16px);
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 5px #ecc98080;
+}
+.hoshikuzu-primitives .memory-empty-star {
+  position: absolute;
+  left: 45.5%;
+  top: 23%;
+  width: 9%;
+  height: 18%;
+  overflow: visible;
+  fill: #ffe3a7;
+  filter: drop-shadow(0 0 4px #f2cb8066);
+}
+.hoshikuzu-primitives .memory-empty-star ellipse {
+  fill: none;
+  stroke: #e8cf9170;
+  stroke-width: 1.4;
+}
+.hoshikuzu-primitives .memory-card-empty-copy {
+  position: absolute;
+  left: 12%;
+  right: 10%;
+  top: 47%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.hoshikuzu-primitives .memory-card-empty-copy strong {
+  font-family: var(--hoshikuzu-archive-serif);
+  font-size: clamp(8px, 4.5cqw, 23px);
+  color: #ece6d5;
+  margin: 0 0 3.5%;
+  font-weight: 400;
+}
+.hoshikuzu-primitives .memory-card-empty-copy > span {
+  font-family: var(--hoshikuzu-archive-serif);
+  font-size: clamp(7px, 3.1cqw, 16px);
+  line-height: 1.55;
+  color: #bfd0e0;
+}
+@media (max-width: 580px) {
+  .hoshikuzu-primitives .memory-card-copy {
+    top: 36%;
+    right: 7%;
+  }
+  .hoshikuzu-primitives .memory-card-copy > span {
+    -webkit-line-clamp: 2;
+    font-size: 6px;
+  }
+  .hoshikuzu-primitives .memory-card-topline {
+    font-size: 5.5px;
+  }
+  .hoshikuzu-primitives .memory-card-topline time {
+    font-size: 4.5px;
+  }
+  .hoshikuzu-primitives .memory-card-empty-copy > span {
+    font-size: 6px;
+  }
+  .hoshikuzu-primitives .memory-card-load {
+    font-size: 6px;
+  }
+}
+
+.hoshikuzu-primitives .archive-frame { position: relative; width: 100%; aspect-ratio: 1672 / 940; min-height: 620px; container-type: size; isolation: isolate; }
+.hoshikuzu-primitives .archive-content { position: absolute; inset: 29% 4.55% 18.6%; min-width: 0; min-inline-size: 0; margin: 0; padding: 0; border: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 18px; pointer-events: auto; }
+.hoshikuzu-primitives .archive-page-numbers { left: 15%; width: 70%; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.hoshikuzu-primitives .archive-page-numbers button { width: auto; min-width: 30px; min-height: 30px; }
+.hoshikuzu-primitives .archive-page-gap { color: #91a7c4; }
+.hoshikuzu-primitives .archive-page-numbers .active::before { inset: -50% -30%; }
+.hoshikuzu-primitives .memory-card { position: relative; display: block; width: 100%; height: 100%; min-width: 0; padding: 0; border: 0; border-radius: 3px; background: none; isolation: isolate; overflow: visible; container-type: size; transition: transform .22s ease, filter .22s ease; }
+.hoshikuzu-primitives .memory-card-frame { position: absolute; inset: 0; border: 1px solid #d8be8052; border-radius: 4px; background: linear-gradient(140deg, #233650cc, #122238ed); box-shadow: inset 0 0 0 5px #0c1b303f, 0 7px 18px #0002; pointer-events: none; }
+.hoshikuzu-primitives .memory-card-frame::after { content: ""; position: absolute; inset: 7px; border: 1px solid #d8be8024; border-radius: 2px; }
+.hoshikuzu-primitives .memory-card.filled { transform-origin: calc(25.75% - 1px) var(--memory-photo-pivot-y, 54.4%); }
+.hoshikuzu-primitives .memory-card:not(:disabled)[data-reduced="false"]:hover { transform: translateY(-3px) scale(1.008); filter: drop-shadow(0 0 6px #c9af682e); }
+.hoshikuzu-primitives .memory-card:focus-visible { outline: 2px solid #f0dba7; outline-offset: 3px; }
+.hoshikuzu-primitives .memory-card:disabled { opacity: .5; cursor: default; }
+.hoshikuzu-primitives .memory-card[data-reduced="true"] { transition: none; }
+.hoshikuzu-primitives .memory-card-topline { font-size: clamp(9px, 3cqw, 13px); letter-spacing: .04em; }
+.hoshikuzu-primitives .memory-card-topline time { font-size: clamp(8px, 2.7cqw, 12px); }
+.hoshikuzu-primitives .memory-card-copy strong { font-size: clamp(11px, 4cqw, 19px); }
+.hoshikuzu-primitives .memory-card-copy > span, .hoshikuzu-primitives .memory-card-empty-copy > span { font-size: clamp(10px, 3.1cqw, 14px); }
+.hoshikuzu-primitives .memory-card-empty-copy strong { font-size: clamp(12px, 4.5cqw, 20px); }
+.hoshikuzu-primitives .memory-card-load { font-size: clamp(10px, 3.5cqw, 14px); }
+.hoshikuzu-primitives .hoshikuzu-thumbnail-empty { display: grid; place-items: center; width: 100%; height: 100%; color: #e3c685; background: #101a2e; font-size: 24px; }
+.hoshikuzu-primitives .memory-photo { border: 1px solid #c4b18152; }
+@media (max-width: 720px) {
+  .hoshikuzu-primitives .archive-frame { aspect-ratio: auto; min-height: 0; padding: 25px 18px 30px; container-type: inline-size; }
+  .hoshikuzu-primitives .archive-constellation { height: 320px; }
+  .hoshikuzu-primitives .archive-heading { position: relative; left: auto; top: auto; }
+  .hoshikuzu-primitives .archive-heading h3 { font-size: 30px; }
+  .hoshikuzu-primitives .archive-eyebrow { font-size: 10px; }
+  .hoshikuzu-primitives .archive-caption { font-size: 12px; line-height: 1.7; }
+  .hoshikuzu-primitives .archive-poem, .hoshikuzu-primitives .archive-side-poem { display: none; }
+  .hoshikuzu-primitives .archive-modes { position: relative; inset: auto; width: 100%; margin-top: 22px; gap: 10px; }
+  .hoshikuzu-primitives .archive-mode { min-height: 38px; font-size: 13px; }
+  .hoshikuzu-primitives .archive-content { position: relative; inset: auto; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: 14px; margin-top: 24px; }
+  .hoshikuzu-primitives .memory-card { height: auto; aspect-ratio: 2 / 1; min-height: 158px; }
+  .hoshikuzu-primitives .archive-page-numbers { position: relative; inset: auto; width: 100%; margin-top: 28px; gap: 4px; font-size: 12px; }
+  .hoshikuzu-primitives .archive-page-numbers button { min-width: 24px; }
+  .hoshikuzu-primitives .archive-footer-chain, .hoshikuzu-primitives .archive-bottom-star { display: none; }
+}

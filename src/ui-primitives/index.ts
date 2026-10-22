@@ -15,3 +15,7 @@ export type { Quality } from './visualTypes.js';
 export { default as SettingsPanel, SettingsStar, StarSlider, type ChangePreference } from './SettingsPanel.js';
 export { default as SettingsModal } from './SettingsModal.js';
 export { defaultPreferences, isPreferences, type Preferences } from './preferences.js';
+export { default as ArchiveFrame } from './ArchiveFrame.js';
+export { default as MemoryCard } from './MemoryCard.js';
+export { default as MemoryThumbnail } from './MemoryThumbnail.js';
+export type { ArchiveEntry, ArchiveMode } from './archiveTypes.js';

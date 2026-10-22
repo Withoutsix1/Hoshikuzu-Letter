@@ -25,6 +25,10 @@
 | `src/ui-primitives/preferences.ts` | 偏好类型、默认值与输入校验 |
 | `src/ui-primitives/SettingsPanel.tsx` | 受控的偏好面板、星形开关与滑块 |
 | `src/ui-primitives/SettingsModal.tsx` | 支持焦点循环和退出清理的原生设置弹窗 |
+| `src/ui-primitives/ArchiveFrame.tsx` | 可配置分页、保存能力与暂停状态的存档展示框架 |
+| `src/ui-primitives/MemoryCard.tsx` | 由调用方提供数据与操作的信笺卡片 |
+| `src/ui-primitives/MemoryThumbnail.tsx` | 支持缺图与加载失败回退的缩略图 |
+| `src/ui-primitives/archiveTypes.ts` | 存档模式与展示记录类型，不包含游戏进度 |
 | `src/ui-primitives/styles.css` | 上述组件使用的独立样式与程序动效 |
 | `src/ui-primitives/index.ts` | 模块导出入口 |
 | `src/README.md` | 随代码提供的接口与使用说明 |

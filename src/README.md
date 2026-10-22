@@ -1,7 +1,7 @@
 # 通用 UI 模块
 
 本说明与 `ui-primitives/` 中的程序按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
-当前提供 16 个不依赖 Studio SDK 的独立模块，附公共视觉类型和独立样式，用于在其他界面中组合使用。
+当前提供 19 个不依赖 Studio SDK 的独立模块，附公共视觉与展示数据类型和独立样式，用于在其他界面中组合使用。
 
 ## 安装与检查
 
@@ -35,6 +35,9 @@ JavaScript、类型声明和 `styles.css` 产物位于 `dist/ui-primitives/`，�
 | `SettingsPanel`、`ChangePreference` | 受控的质量、声音、文字速度和全屏设置面板；通过类型化回调将变更交给应用 |
 | `SettingsStar`、`StarSlider` | 可独立使用的装饰星与带数值显示的滑块；滑块输入范围为 0–100 |
 | `SettingsModal({ close, reduced, children })` | 原生模态设置窗口；处理背景隔离、键盘循环、退出动画、焦点返回与页面滚动恢复 |
+| `ArchiveFrame`、`ArchiveMode` | 受控的保存／读取模式、分页与暂停容器；由调用方提供卡片子元素 |
+| `MemoryCard`、`ArchiveEntry` | 展示时间、摘要和可选缩略图，通过 `activate` 请求应用处理操作 |
+| `MemoryThumbnail({ snapshot, alt })` | 显示调用方提供的缩略图；缺图或加载失败时显示程序占位图形 |
 
 交互 Hook 需要 React 和浏览器 DOM。`useFrameCovered` 不直接控制画面渲染，也不适用于服务端渲染。
 React 应用中的元素挂载后应通过状态更新传入实际 `HTMLElement`，而不是只修改一个不会触发重渲染的 ref。
@@ -134,7 +137,7 @@ function ThreadExample({ reduced }: { reduced: boolean }) {
 
 子组件通过 `useResource()` 取得对应的 `url` 和 `portal`；这里只传递容器，不自动创建 Portal。
 
-基础逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。可视组件、曲线交互、画面切换、设置面板和弹窗另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效、样式隔离和焦点恢复。实际听感、React 18 及其他浏览器行为尚未单独验证。
+基础逻辑已通过类型检查、编译和 DOM 模拟环境下的重复启动、取消、卸载清理、曲线回弹及音频控制验证。可视组件、曲线交互、画面切换、设置面板、弹窗和存档展示组件另通过了 Edge 桌面与手机尺寸检查，覆盖鼠标、键盘、触摸、减少动效、样式隔离和焦点恢复。实际听感、React 18 及其他浏览器行为尚未单独验证。
 
 ## 独立视觉组件与样式
 
@@ -208,3 +211,49 @@ function SettingsExample({ systemReduced }: { systemReduced: boolean }) {
 `reduced=true` 时立即关闭；其他情况下等待 0.3 秒退出动画后通知 `close`。重复关闭只通知一次；外部卸载也会清理滚动锁和恢复可返回的焦点。应用应将 `preferences.reduced || systemReduced` 同步传给需要减少动效的其他组件。
 
 偏好校验覆盖有效质量值、布尔开关和有限的数值范围，不要求数值为整数。滑块输入按步长 1 提交数值，调用方传入的 `value` 应在 0–100 内。实际声音、文字显现和浏览器全屏能力须在接入应用后验证。
+
+
+## 存档展示
+
+`ArchiveFrame` 负责模式与分页界面；`MemoryCard` 只展示传入的 `ArchiveEntry`。`savedAt` 建议使用带时区的 ISO 时间字符串，`excerpt` 为纯文本；`chapterLabel`、`speaker`、`thumbnail` 均可省略。数据中没有引擎状态、剧情行号或路线字段。
+
+```tsx
+import { useState } from 'react';
+import './dist/ui-primitives/styles.css';
+import { ArchiveFrame, MemoryCard, type ArchiveEntry, type ArchiveMode } from './dist/ui-primitives/index.js';
+
+function ArchiveExample({ entries, pageCount, saveEnabled, paused, reduced, operate }: {
+  entries: (ArchiveEntry | null)[][];
+  pageCount: number;
+  saveEnabled: boolean;
+  paused: boolean;
+  reduced: boolean;
+  operate: (mode: ArchiveMode, page: number, slot: number) => void;
+}) {
+  const [mode, setMode] = useState<ArchiveMode>('load');
+  const [page, setPage] = useState(0);
+  const slots = entries[page] ?? Array<ArchiveEntry | null>(6).fill(null);
+  return (
+    <div className="hoshikuzu-primitives">
+      <ArchiveFrame mode={mode} changeMode={setMode} saveEnabled={saveEnabled}
+        paused={paused} reduced={reduced} page={page} pageCount={pageCount} changePage={setPage}>
+        {slots.map((snapshot, slot) => (
+          <MemoryCard key={`${page}-${slot}`} snapshot={snapshot} index={page * 6 + slot}
+            mode={mode} reduced={reduced} hover={() => {}}
+            activate={() => operate(mode, page, slot)} />
+        ))}
+      </ArchiveFrame>
+    </div>
+  );
+}
+```
+
+页码与卡片编号从 0 开始传入，显示时加 1。`pageCount` 默认为 5；非正安全整数按 1 页显示。框架将当前页限制在有效范围，超过 7 页时只显示首尾和当前页附近的按钮，不创建全部页码；调用方仍须同步自己的页码和数据，尤其在页数减少时。桌面布局适合每页 6 张卡片，视口宽度不超过 720px 时切为单列。
+
+`paused` 禁用模式、分页和子区域内的原生表单控件，并暂停装饰动画。`saveEnabled=false` 禁用保存模式按钮；当前处于保存模式时也禁用卡片区域。卡片自身的 `disabled` 可单独禁用某个槽位，读取模式下空卡片自动禁用。自定义子元素的非原生交互须由应用自行锁定。
+
+卡片的 `hover` 仅响应可操作状态下的非触摸指针，`activate` 仅通知应用；所有按钮使用 `type="button"`。将 `reduced` 同时传给框架与卡片可关闭呼吸动画、悬停位移和过渡。卡片需要浏览器支持 `ResizeObserver`，卸载时清理尺寸监听。
+
+时间默认按 `zh-CN` 和 `Asia/Hong_Kong` 显示，可用 `locale`／`timeZone` 覆盖；无效日期显示“时间未知”，无效格式选项回退为 ISO 时间。缩略图直接使用调用方提供的地址，空值或加载失败时显示占位；更换为新地址后会重新加载。单独使用 `MemoryThumbnail` 时，父元素应提供相对定位及尺寸，也可用 `alt` 指定替代文字。
+
+边框由 CSS 绘制，不附带制作 PNG、截图或实际存档。持久化、截图生成、覆盖确认、保存失败处理与游戏恢复由应用实现；`saveEnabled` 只控制界面，应用仍应在执行回调时检查自己的保存条件。
