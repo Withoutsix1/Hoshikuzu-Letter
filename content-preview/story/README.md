@@ -14,7 +14,7 @@
 | --- | --- |
 | 题材 | 校园恋爱、日常、书信与时间之谜 |
 | 故事视角 | 月白秋一 |
-| 当前状态 | 开发中，尚无公开下载包 |
+| 当前状态 | 开发中；[Day01 免费试玩](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.1.0)已提供 Windows x64 版本 |
 | 发行计划 | 免费提供，具体试玩与正式版本信息另行公布 |
 
 [认识主要人物](../characters/README.md) · [查看立绘展示](../../showcase/README.md) · [返回项目首页](../../README.md)
