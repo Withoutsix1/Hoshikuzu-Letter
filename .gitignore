@@ -38,9 +38,12 @@ reference/
 *.pfx
 *.key
 
-# Music remains closed until individually reviewed; images are not globally ignored.
+# Only the individually reviewed music excerpts are public.
 /music-preview/*
 !/music-preview/README.md
+!/music-preview/daily-preview.mp3
+!/music-preview/quiet-preview.mp3
+!/music-preview/warm-preview.mp3
 
 # Generated stylesheet for the complete extension source package.
 /studio-extension/src/theme.css
