@@ -12,15 +12,26 @@ import { artworkList, key, persist, storyPhase, uiSave } from './state';
 import { migrateSkipSettings, migrateVolumeSettings, migrateVoiceSettings } from './settingsValues';
 import { waitForBgmStop } from './engineBridge';
 import { registerVoicePlaybackGain } from './voicePlaybackGain';
+import StoryPhone,{appendPhoneMessage,finishPhoneStep,hideStoryPhone,registerVoiceExclusivity} from './StoryPhone';
 export { manifest };
 interface CloseProps extends ExtensionProps {close:()=>void}
+@extension({id:'story-phone',label:'星屑信 · LIME剧情聊天'})
+export class HoshikuzuStoryPhone extends Extension<CloseProps> {
+  render(){return {component:StoryPhone,props:{close:()=>this.close()}};}
+  static mountPhone=method({id:'mount-story-phone',title:'LIME剧情开始',async run(){}});
+  static unmountPhone=method({id:'unmount-story-phone',title:'收起LIME',async run(ctx){hideStoryPhone(ctx)}});
+  static chat=method({id:'story-chat',title:'LIME剧情消息',schema:{
+    message:{type:'string',label:'消息'},sequenceId:{type:'string',label:'消息ID'},presetId:{type:'string',label:'角色'},speakerName:{type:'string',label:'显示名称'},direction:{type:'string',label:'方向'},contentType:{type:'string',label:'类型'},groupId:{type:'string',label:'群ID'},friend:{type:'string',label:'好友ID'},threadTitle:{type:'string',label:'会话名'},memberCount:{type:'number',label:'群人数'},storyDay:{type:'number',label:'剧情日'},storyOrder:{type:'number',label:'消息顺序'},storyMinute:{type:'number',label:'剧情分钟'},imageAsset:{type:'asset',assetType:'image',label:'图片'},voiceAsset:{type:'asset',assetType:'audio',label:'语音'},voiceId:{type:'string',label:'语音ID'},duration:{type:'number',label:'语音秒数'},fileAsset:{type:'string',label:'文件'},fileName:{type:'string',label:'文件名'},fileSize:{type:'string',label:'文件大小'}},
+    async run(ctx,p){await appendPhoneMessage(ctx,p as unknown as Record<string,unknown>);},async skip(ctx,p){appendPhoneMessage(ctx,p as unknown as Record<string,unknown>,false);},runImmediately(ctx,p){appendPhoneMessage(ctx,p as unknown as Record<string,unknown>,false);}
+  });
+}
 export const visualUI = Object.fromEntries(Object.entries(import.meta.glob('../ui/*.json',{eager:true,import:'default'})).map(([path,value])=>[path.replace(/^.*\/([^/]+)\.json$/,'$1'),value]));
 
 @extension({id:'title',label:'星屑信 · 星图标题',supportsSlot:Slot.Title})
 export class HoshikuzuTitle extends Extension<CloseProps> {
   static settings=settings(s=>({
-    titlePreset:s.enum('标题预设',['text','image'] as const).labels({text:'普通宋体星屑信',image:'鎏金星轨徽章'}).default('text'),
-    backgroundPreset:s.enum('背景预设',['observatory','milky-way'] as const).labels({observatory:'天文台星空','milky-way':'星河天台'}).default('observatory'),
+    titlePreset:s.enum('标题预设',['text','image'] as const).labels({text:'普通宋体星屑信',image:'星光信笺徽标与邮箱'}).default('image'),
+    backgroundPreset:s.enum('背景预设',['observatory','milky-way'] as const).labels({observatory:'山顶观景台','milky-way':'星河天台'}).default('observatory'),
     openingLetter:s.boolean('首次启动先显示第一封来信').default(true),
     repeatOpeningLetter:s.boolean('每次启动显示感谢信（演示用）').default(false),
   }));
@@ -58,6 +69,7 @@ export class HoshikuzuProgress extends Extension {
   static settings=settings(s=>({startWithBetaLetter:s.boolean('新玩家默认为内测玩家').default(false)}));
   static onRegister(ctx:ExtensionContext){
     registerVoicePlaybackGain(ctx);
+    registerVoiceExclusivity(ctx);
     ctx.input.registerAction({id:'hoshikuzu.ui.open-history',label:'打开阅读记录',defaultKeys:['wheelup']});
     migrateVolumeSettings(ctx);
     void migrateSkipSettings(ctx);

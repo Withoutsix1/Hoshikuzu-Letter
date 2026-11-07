@@ -22,10 +22,12 @@ export const backgrounds = {
   { label: string; src: string; alt: string; description: string }
 >;
 
-export const titleWordmark = "./assets/title-gold-transparent.png";
+export const titleWordmark = "assets/title-letter-wordmark.png";
+export const titleMailbox = "assets/title-mailbox.png";
+export const titleBackground = "assets/title-observation-deck.png";
 export const defaultAppearance: Appearance = {
   background: "observatory",
-  title: "text",
+  title: "image",
 };
 
 export function isAppearance(value: unknown): value is Appearance {

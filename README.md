@@ -9,8 +9,8 @@
 ## 项目状态
 
 - 开发中，使用 LetsGal Studio 制作。
-- Day01 免费试玩 v0.1.0（Windows x64）：[下载试玩包](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.1.0) · [版本说明](RELEASE_NOTES.md)。
-- 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和一张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有；Day01 可运行包单独通过 Releases 提供。
+- 第一章完成版 v0.2.0（Windows x64），覆盖 Day01—Day12：[下载游戏](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.0) · [版本说明](RELEASE_NOTES.md)。
+- 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和一张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有；第一章可运行包单独通过 Releases 提供。
 - `Hoshikuzu-Letter` 为暂用仓库名，不代表已确定正式外文名。
 
 ## 当前提供的内容
@@ -18,7 +18,7 @@
 - 非剧透作品梗概，以及月白秋一、比叡雏、椿静夜、神崎琉璃、雪丸奏的简短介绍。
 - 项目状态、贡献规则及内容授权说明。
 - 已按 MIT 授权的 22 个独立模块：导航与层状态、阅读模式、星形生成、提示音合成、资源上下文、画面切换、曲线交互、星形菜单与装饰、流星、阅读控件、偏好校验、设置面板和弹窗、存档框架、信笺卡片与缩略图、画廊分类和大图查看，附独立样式。
-- 完整原创 Studio UI 扩展源码：标题、阅读、选项原型、工具栏、历史、粒子、宿主接入、截图与存读档等；见 [源码包说明](studio-extension/README.md)和[迁移覆盖](CODE_MIGRATION.md)。
+- 完整原创 Studio UI 扩展源码：标题、阅读、选项原型、工具栏、历史、分日回顾、手机聊天、粒子、宿主接入、截图与存读档等；见 [源码包说明](studio-extension/README.md)和[迁移覆盖](CODE_MIGRATION.md)。
 - 四位女主的标准立绘展示版：比叡雏、椿静夜、神崎琉璃、雪丸奏。
 - 两张春日校园背景，以及比叡雏课堂 CG 的缩小展示版。
 - 三段各约 45 秒的 AI 配乐试听，见[音乐试听](music-preview/README.md)和[音频来源说明](AUDIO_SOURCES.md)。
@@ -71,5 +71,5 @@ npm run build
 
 ## 免费发行
 
-Day01 免费试玩已提供 Windows x64 下载，见 [Releases](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.1.0)。包内附操作、AI 内容、声音来源和第三方许可说明；版本范围、验证情况及限制见 [版本说明](RELEASE_NOTES.md)。
+第一章完成版已提供 Windows x64 下载，见 [Releases](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.0)。本版包含 8 个章节段、79 场，第一章已经完成，后续篇章仍在制作。旧 Day01 试玩作为历史版本保留。包内附操作、AI 内容、声音来源和第三方许可说明；版本范围、验证情况及限制见 [版本说明](RELEASE_NOTES.md)。
 免费游玩不代表美术、剧本、音乐或配音可以独立再利用。

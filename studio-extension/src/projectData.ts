@@ -16,3 +16,7 @@ export const previewLines: PreviewLine[] = [];
 export const previewScenes: PreviewScene[] = [];
 export const legacyArchivePositions: Record<string, Record<string, string>> = {};
 export const voicePlaybackGains: VoiceGainRule[] = [];
+
+export const dailyHistoryIndex = { blockDays: {} as Record<string, number>, textDays: {} as Record<string, number[]>, voiceDays: {} as Record<string, number>, firstTextByDay: {} as Record<string, string> };
+export interface PhoneSystemNotice { thread: string; fromDay: number; id: string; text: string; orderOffset: number }
+export const phoneSystemNotices: PhoneSystemNotice[] = [];

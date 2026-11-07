@@ -1,11 +1,14 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { useExtensionContext } from '@avg-studio/sdk';
 import { engineBridge } from './engineBridge';
+import { activeHistoryDay, entriesForDay } from './dailyHistory';
 
 export function useEngineReading() {
   const ctx=useExtensionContext();
   const line=ctx.dialogue.useLine();
   const history=ctx.history.useSnapshot();
+  const day=activeHistoryDay(ctx,history.entries);
+  const entries=useMemo(()=>entriesForDay(history.entries,day),[history.entries,day]);
   const [reading,setReading]=useState({text:line?.text??'',revealed:0,available:false});
   const bridge=engineBridge(ctx);
   useLayoutEffect(()=>{
@@ -41,5 +44,5 @@ export function useEngineReading() {
       native.forEach(element=>element.classList.remove('hoshikuzu-native-reading-hidden'));
     };
   },[ctx,line?.text,line?.speakerName]);
-  return {line,reading,bridge,index:Math.max(0,history.entries.length-1)};
+  return {line,reading,bridge,index:Math.max(0,entries.length-1)};
 }

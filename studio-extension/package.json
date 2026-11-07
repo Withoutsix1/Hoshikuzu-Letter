@@ -1,6 +1,6 @@
 {
   "name": "@hoshikuzu-letter/studio-extension",
-  "version": "0.3.16-public.1",
+  "version": "0.3.25-public.1",
   "private": true,
   "type": "module",
   "scripts": {

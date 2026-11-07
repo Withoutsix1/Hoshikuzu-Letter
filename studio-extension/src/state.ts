@@ -6,6 +6,7 @@ export const uiSave = defineSave({
   readingMode: { type:'string',persistence:'slot',default:'normal' },
   readingPlace: { type:'string',persistence:'slot',default:'' },
   readingCaption: { type:'string',persistence:'slot',default:'' },
+  storyPhoneState: { type:'string',persistence:'slot',default:'{}' },
   storyPhase: { type: 'number', persistence: 'shared', default: 0 },
   isBetaTester: { type: 'boolean', persistence: 'shared', default: false },
   betaIdentityInitialized: { type: 'boolean', persistence: 'shared', default: false },

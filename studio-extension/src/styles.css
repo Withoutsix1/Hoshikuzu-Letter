@@ -1039,6 +1039,26 @@ nav {
   color: #e8e3d4;
   text-shadow: 0 0 8px #ffe0a74d;
 }
+/* The supplied artwork includes both the Chinese wordmark and its Roman line. */
+.title-identity .title-logo.title-art-lockup {
+  width: 53%;
+}
+.title-identity .title-art-lockup h2.has-wordmark-image {
+  width: 100%;
+  aspect-ratio: 1931 / 814;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+}
+.title-art-lockup .title-mailbox-image {
+  position: absolute;
+  width: 16.6667%;
+  height: auto;
+  right: -8%;
+  top: 41%;
+  pointer-events: none;
+  user-select: none;
+}
 .title-poem {
   position: absolute;
   left: 50%;

@@ -1,6 +1,8 @@
 # 星屑信 Studio UI 扩展源码
 
-本目录提供项目原创 UI 扩展的完整软件源码：标题与星图、来信动效、阅读页、选项原型、工具栏、历史、设置、画廊、存读档、截图、转场、粒子效果及引擎接入代码。软件与本说明按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
+本目录提供项目原创 UI 扩展的完整软件源码：标题与星图、来信动效、阅读页、选项原型、工具栏、历史与分日回顾、手机聊天、设置、画廊、存读档、截图、转场、粒子效果及引擎接入代码。软件与本说明按根目录 [MIT License](../LICENSE) 授权，署名为「星屑信项目贡献者」。
+
+本次同步制作版本 0.3.25，公开软件包版本 0.3.25-public.1。
 
 它与 [通用模块](../src/README.md) 分开构建。通用模块不依赖 Studio；本目录保留 Studio 接入方式和对应的整套布局，适合研究或在自有工程中集成。
 
@@ -22,16 +24,17 @@ npm run build
 
 ## 游戏内容与素材接口
 
-[projectData.ts](src/projectData.ts) 提供可选内容输入：演示对白、场景介绍、旧存档位置映射和逐句语音增益表。公开版本默认为空；没有旧存档映射时，读取走宿主的常规存档接口，没有增益规则时保持正常音量。原项目台词、剧情节点ID与配音校准记录未复制进来。
+[projectData.ts](src/projectData.ts) 提供可选内容输入：演示对白、场景介绍、旧存档位置映射、逐句语音增益表和分日历史索引。公开版本默认为空；没有旧存档映射时，读取走宿主的常规存档接口，没有增益规则时保持正常音量。原项目台词、剧情节点ID与配音校准记录未复制进来。
 
-实际游玩对白、历史、进度、选择、存档与图片解锁记录由Studio宿主传入；公开源码包含这些数据的处理逻辑，不包含真实玩家存档、路线脚本或预先解锁的数据。两份 `ui/` 布局中的预览文字已换为中性的示例。
+实际游玩对白、历史、进度、选择、存档与图片解锁记录由Studio宿主传入；公开源码包含这些数据的处理逻辑，不包含真实玩家存档、路线脚本或预先解锁的数据。手机系统通知由 `projectData.ts` 的 `phoneSystemNotices` 提供，默认空数组，接入者自行填写会话、触发日与文字。两份 `ui/` 布局中的预览文字已换为中性的示例。
 
 媒体文件不随源码提供。现有资源接口使用下列逻辑文件名；集成者需要提供自己有权使用的素材，或修改资源解析与对应样式：
 
 | 用途 | 逻辑资源名 |
 | --- | --- |
 | 标题背景 | `assets/observatory-sky.png`、`assets/title-starfield.png` |
-| 标题图标 | `assets/title-gold-transparent.png`，默认文字标题不依赖它 |
+| 当前标题构图 | `assets/title-observation-deck.png`、`assets/title-letter-wordmark.png`、`assets/title-mailbox.png` |
+| 手机头像 | `assets/phone/avatar_{akihito,hina,saeki,kanade,ruri,shizuya}.png` |
 | 存档背景 | `assets/archive-valley.png` |
 | 存档边框 | `assets/archive-empty-frame.png`、`assets/archive-filled-frame.png` |
 | 历史边框 | `assets/log-panel-transparent.png` |
@@ -47,8 +50,10 @@ npm run build
 - `ReadingPage`、`TitleMenu`、`StoryStars` 等：完整布局与程序视觉效果。
 - `engineBridge`、`useEngineReading`、`nativeReadingReplacement`、`nativeRenderActivity`：宿主状态和原生画面的协调。
 - `loadStoryArchive`、`readingSnapshot`、`storyTransition`：恢复、截图及跨界面转场。
+- `StoryPhone`、`storyPhone.css`：从宿主读取的聊天、图片与文件预览、语音播放和时间显示。
+- `dailyHistory`：按调用方提供的索引组织已读历史；公开索引默认为空。
 - `scripts/build-theme.mjs`、`scripts/project.mjs`：样式生成、类型检查、构建与依赖许可收集。
 
 本目录保留完整宿主接入版本；`src/ui-primitives/` 则提供经过独立使用适配的接口。两者分别维护，不应混用内部类型或样式。
 
-验证包含使用真实SDK的类型检查及完整构建，以及合成宿主下的选项、阅读、历史、保存和转场交互检查。完整游戏运行、真实语音与媒体以及其他SDK版本仍需在接入工程中验证。
+本次公开软件通过 SDK 1.11.0 类型检查和完整构建。第一章发行副本另完成 79 场定位、章节衔接、八组存读档，以及 10 组共 129 条手机消息和 8 处新增音效触发检查。公开空数据包不是完整游戏；集成到自己的内容和其他 SDK 版本时仍需验证。

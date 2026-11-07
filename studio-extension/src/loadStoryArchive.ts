@@ -1,5 +1,5 @@
 import type { ExtensionContext } from '@avg-studio/sdk';
-import { legacyArchivePositions } from './projectData';
+import { legacyArchivePositions as legacyDay01Positions } from './projectData';
 
 type ScriptState = {frames?: {kind: string; id: string; cursorIndex: number}[]; archivedStackChain?: {id: string; cursorIndex: number}[]};
 type StoredArchive = {cursorIndex: number; internalSystemDatas?: {scriptingSystem?: ScriptState}};
@@ -14,12 +14,12 @@ async function restoreArchive(ctx: ExtensionContext, id: number) {
   const archive=await app?.getSubSystem(19).getArchive(id);
   const state=archive?.internalSystemDatas?.scriptingSystem;
   const frame=state?.frames?.[0] ?? state?.archivedStackChain?.[0];
-  const positions=legacyArchivePositions;
+  const positions=legacyDay01Positions as Record<string, Record<string,string>>;
   const blockId=frame && positions[frame.id]?.[String(frame.cursorIndex)];
   if(app&&archive&&state&&blockId){
     const cursor=app.getSubSystem(9).getNodes().findIndex(node=>node.getData().localization?.blockId===blockId);
-    if(cursor<0)throw new Error('未找到旧存档对应的对白，请确认已打开当前工程。');
-    // Older project saves used a scene-call cursor plus an inner dialogue cursor.
+    if(cursor<0)throw new Error('未找到旧存档对应的对白，请确认已打开最新的 Day01 工程。');
+    // Older Day01 saves used a scene-call cursor plus an inner dialogue cursor.
     // Translate that pair to the same dialogue in the current linear script.
     return app.reloadFromArchive({...archive,cursorIndex:cursor,internalSystemDatas:{
       ...archive.internalSystemDatas,scriptingSystem:{...state,frames:[],archivedStackChain:[]},

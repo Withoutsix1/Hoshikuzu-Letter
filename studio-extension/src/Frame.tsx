@@ -8,7 +8,7 @@ import Meteors from './Meteors';
 import type { Quality } from './model';
 import css from './theme.css?inline';
 import integrationCss from './integration.css?inline';
-import { backgrounds } from './visualAssets';
+import { backgrounds, titleBackground } from './visualAssets';
 import { useAppearance } from './appearance';
 import { useFrameCovered } from './frameActivity';
 import { useNativeRenderActivity } from './nativeRenderActivity';
@@ -73,7 +73,7 @@ export default function Frame({ scene = 'title', children, transparent = false }
         pointerY.set((event.clientY - box.top) / box.height * 2 - 1);
       }} onPointerLeave={() => { pointerX.set(0); pointerY.set(0); }}>
         {!transparent && <div className="stage-visuals">
-          {scene!=='letter' && <motion.img className="title-background-image" src={url(scene === 'memory' ? 'assets/archive-valley.png' : backgrounds[appearance.background].src.replace(/^\.\//, ''))} data-background={scene === 'memory' ? 'archive-valley' : appearance.background} style={{ x:glowX, y:glowY, scale: 1.06 }} alt="" draggable={false}/>}
+          {scene!=='letter' && <motion.img className="title-background-image" src={url(scene === 'memory' ? 'assets/archive-valley.png' : scene === 'title' && appearance.background === 'observatory' ? titleBackground : backgrounds[appearance.background].src.replace(/^\.\//, ''))} data-background={scene === 'memory' ? 'archive-valley' : appearance.background} style={{ x:glowX, y:glowY, scale: scene === 'title' ? 1.015 : 1.06 }} alt="" draggable={false}/>}
           <div className="stage-sky"/><div className="stage-grain"/>
           {!reduced && quality !== 'off' && <>
             {(quality === 'high' || quality === 'medium') && <video ref={video} className="ambient-video" src={url('assets/fx_stardust_loop.webm')} muted loop autoPlay playsInline aria-hidden="true"/>}

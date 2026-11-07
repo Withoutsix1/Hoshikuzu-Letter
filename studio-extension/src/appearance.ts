@@ -8,6 +8,6 @@ export function useAppearance(): Appearance {
   const [title] = ctx.settings.useValue<string>('title.titlePreset');
   return {
     background: background === 'milky-way' ? background : defaultAppearance.background,
-    title: title === 'image' ? title : defaultAppearance.title,
+    title: title === 'image' || title === 'text' ? title : defaultAppearance.title,
   };
 }

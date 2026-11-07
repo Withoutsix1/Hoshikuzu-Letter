@@ -16,6 +16,17 @@ export function registerVoicePlaybackGain(ctx:ExtensionContext) {
   const sound=app?.getSubSystem(12) as SoundSystem|undefined;
   if(!sound?.emitter||registered.has(sound))return;
   registered.add(sound);
+  // Apply author gain when the native player computes its initial volume too.
+  // HTML5 audio can otherwise overwrite a play-start event's volume update
+  // when it drains its queued startup operations.
+  const nativeVolume=sound.resolveHowlerVolume.bind(sound);
+  sound.resolveHowlerVolume=(track:Track,type:string)=>{
+    if(type==='VOCAL'||track.type==='VOCAL'){
+      const uri=String(track.uri||'');
+      track.volume=quieterVoices.find(x=>uri.includes(x.hash)||uri.includes(x.id))?.multiplier??1;
+    }
+    return nativeVolume(track,type);
+  };
   const apply=(track:Track)=>{
     if(track.type!=='VOCAL')return;
     const uri=String(track.uri||'');

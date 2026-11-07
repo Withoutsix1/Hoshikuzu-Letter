@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { useExtensionContext } from '@avg-studio/sdk';
 import Frame, { useVisualPreferences } from './Frame';
 import { useResource } from './resources';
+import { activeHistoryDay, entriesForDay } from './dailyHistory';
 
 export default function HistoryScreen({close}:{close:()=>void}) {
   return <Frame transparent scene="history"><LetterHistory close={close}/></Frame>;
@@ -15,11 +16,13 @@ function LetterHistory({close}:{close:()=>void}) {
   const ctx=useExtensionContext(), {url}=useResource();
   const {reduced}=useVisualPreferences();
   const snapshot=ctx.history.useSnapshot();
+  const day=activeHistoryDay(ctx,snapshot.entries);
+  const entries=useMemo(()=>entriesForDay(snapshot.entries,day),[snapshot.entries,day]);
   const panel=useRef<HTMLElement>(null), viewport=useRef<HTMLDivElement>(null);
   const content=useRef<HTMLDivElement>(null), track=useRef<HTMLDivElement>(null);
   const followLatest=useRef(true);
   const drag=useRef<{y:number;scroll:number}|null>(null);
-  const [selected,setSelected]=useState(snapshot.entries.length-1);
+  const [selected,setSelected]=useState(entries.length-1);
   const [error,setError]=useState('');
   const [scroll,setScroll]=useState({max:0,offset:0,thumb:1,top:0});
 
@@ -43,9 +46,9 @@ function LetterHistory({close}:{close:()=>void}) {
   useLayoutEffect(()=>{
     if(viewport.current)viewport.current.scrollTop=viewport.current.scrollHeight;
     followLatest.current=true;
-    setSelected(snapshot.entries.length-1);
+    setSelected(entries.length-1);
     measure();
-  },[snapshot.entries.length,measure]);
+  },[entries.length,day,measure]);
   useEffect(()=>{
     const old=document.activeElement as HTMLElement|null;
     panel.current?.querySelector<HTMLElement>('.log-close')?.focus({preventScroll:true});
@@ -108,9 +111,9 @@ function LetterHistory({close}:{close:()=>void}) {
             const element=viewport.current;if(element)followLatest.current=element.scrollHeight-element.clientHeight-element.scrollTop<6;
             measure();
           }}>
-            <div ref={content} className="log-entries" role="list">
-              {snapshot.entries.length===0&&<div className="log-empty"><Star/><p>这里将收藏你已经读过的对白。</p><small>每一封来信，都留有回响。</small></div>}
-              {snapshot.entries.map((entry,index)=>{
+            <div ref={content} className="log-entries" role="list" data-history-day={day}>
+              {entries.length===0&&<div className="log-empty"><Star/><p>这里将收藏今天已经读过的对白。</p><small>每一封来信，都留有回响。</small></div>}
+              {entries.map((entry,index)=>{
                 const narration=!entry.name||entry.name==='旁白';
                 return <article className="history-item log-history-row" role="listitem" data-selected={selected===index} data-narration={narration} data-voiced={!!entry.voiceUri} key={entry.uuid??index} onClick={()=>setSelected(index)}>
                   <div className="log-timeline" aria-hidden="true"><span className="log-timeline-line"/><Star className="log-timeline-star"/><small>{String(index+1).padStart(3,'0')}</small></div>

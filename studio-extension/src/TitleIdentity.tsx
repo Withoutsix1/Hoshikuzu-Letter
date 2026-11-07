@@ -4,6 +4,7 @@ import { irregularStar, STAR_FLARE_PATH, starRandom } from "./starVisuals";
 import type { Quality } from "./model";
 import { ThreadInteraction, useBendingThread } from "./ThreadInteraction";
 import { useResource } from "./resources";
+import { titleWordmark, titleMailbox } from "./visualAssets";
 
 type Props = {
   x: MotionValue<number>;
@@ -43,7 +44,7 @@ export default function TitleIdentity({
   disabled,
   imageTitle,
 }: Props) {
-  const wordmark = useResource().url("assets/title-gold-transparent.png");
+  const { url } = useResource();
   const [dust] = useState(() => {
     const random = starRandom("hoshikuzu-title-orbit");
     return dustPositions.map(([left, top]) => ({
@@ -128,21 +129,14 @@ export default function TitleIdentity({
             </span>
           ))}
         </div>
-        <div className="title-logo">
-          <h2 className={imageTitle ? "has-wordmark-image" : "songti-title"} data-title-preset={imageTitle ? "image" : "text"}>
-            星屑信
-            {imageTitle && (
-              <img
-                className="title-wordmark-image"
-                src={wordmark}
-                alt=""
-                aria-hidden="true"
-                draggable={false}
-                decoding="async"
-              />
-            )}
+        <div className={`title-logo${imageTitle ? " title-art-lockup" : ""}`}>
+          <h2 className={imageTitle ? "has-wordmark-image" : "songti-title"} data-title-preset={imageTitle ? "image" : "text"} aria-label={imageTitle ? "星屑信 · HOSHIKUZU NO TEGAMI" : undefined}>
+            {imageTitle ? <>
+              <img className="title-wordmark-image" src={url(titleWordmark)} alt="" aria-hidden="true" draggable={false} decoding="async"/>
+              <img className="title-mailbox-image" src={url(titleMailbox)} alt="" aria-hidden="true" draggable={false} decoding="async"/>
+            </> : "星屑信"}
           </h2>
-          <p className="title-roman">HOSHIKUZU NO TEGAMI</p>
+          {!imageTitle && <p className="title-roman">HOSHIKUZU NO TEGAMI</p>}
         </div>
         <div className="title-poem">
           <p>在无数的可能性之中，</p>

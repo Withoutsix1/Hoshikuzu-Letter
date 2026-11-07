@@ -1,13 +1,13 @@
 # 原创代码迁移覆盖
 
-截至本轮，既有73项代码／配置盘点已逐项处理，所有软件源码与必要配置均已公开。新增的两份原创UI布局也已纳入。
+2026-11-07 已同步第一章完成版所用的原创 UI 软件（制作版本 0.3.25，公开包版本 0.3.25-public.1）。原有软件盘点与两份 UI 布局保持覆盖；新增手机界面、手机样式和分日历史逻辑也已公开。
 
 公开目录由两部分组成：
 
 - [通用模块](src/README.md)：22个独立模块、公共类型、样式和构建工具。
 - [完整Studio UI扩展源码](studio-extension/README.md)：完整布局、宿主接入、粒子、历史、选项、存读档、截图和转场等源码，包含独立依赖锁定与构建入口。
 
-原盘点中的70项软件文件已加入完整源码包。其余3项已明确归类：生成样式由公开构建脚本重建；两个工程专属数据表通过公开的类型化配置接口提供，原数据保持私有。混合模型中的演示对白与场景文案也通过该接口由使用方提供，程序类型与处理逻辑已保留。
+原盘点中的70项软件文件已加入完整源码包。其余3项已明确归类：生成样式由公开构建脚本重建；三个工程专属数据表（旧存档位置、逐句配音增益、分日历史索引）通过公开的类型化配置接口提供，原数据保持私有。混合模型中的演示对白与场景文案也通过该接口由使用方提供，程序类型与处理逻辑已保留。
 
 完整源文件不等于完整游戏：实际剧情、玩家存档、媒体素材、SDK和专有运行时仍由对应工程或宿主提供。软件许可范围见 [CONTENT_LICENSE](CONTENT_LICENSE.md)，第三方依赖见 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md)。
 
@@ -88,3 +88,14 @@
 | `scripts/build-theme.mjs` | [已公开源码](studio-extension/scripts/build-theme.mjs) |
 | `ui/dialogue-normal.json` | [已公开源码](studio-extension/ui/dialogue-normal.json) |
 | `ui/dialogue-special.json` | [已公开源码](studio-extension/ui/dialogue-special.json) |
+
+## 第一章新增软件
+
+| 文件 | 处理结果 |
+| --- | --- |
+| `src/StoryPhone.tsx` | [手机聊天、图片、文件与语音界面](studio-extension/src/StoryPhone.tsx) |
+| `src/storyPhone.css` | [手机界面样式](studio-extension/src/storyPhone.css) |
+| `src/dailyHistory.ts` | [分日历史逻辑](studio-extension/src/dailyHistory.ts) |
+| `src/dailyHistoryIndex.json` | 工程内容索引保持私有；公开 `projectData.ts` 提供同形空数据接口 |
+
+标题构图、阅读与历史、手机语音互斥播放、时间显示、角色头像接入及保存字段已同步。公开代码不包含第一章的剧本、媒体、预生成语音和工程专属索引；可运行成品通过 Releases 提供。
