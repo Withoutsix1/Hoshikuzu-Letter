@@ -9,7 +9,7 @@
 ## 项目状态
 
 - 开发中，使用 LetsGal Studio 制作。
-- 第一章完成版 v0.2.0（Windows x64），覆盖 Day01—Day12：[下载游戏](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.0) · [版本说明](RELEASE_NOTES.md)。
+- 第一章完成版 v0.2.1（Windows x64），覆盖 Day01—Day12：[下载游戏](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.1) · [版本说明](RELEASE_NOTES.md)。
 - 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和一张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有；第一章可运行包单独通过 Releases 提供。
 - `Hoshikuzu-Letter` 为暂用仓库名，不代表已确定正式外文名。
 
@@ -71,5 +71,5 @@ npm run build
 
 ## 免费发行
 
-第一章完成版已提供 Windows x64 下载，见 [Releases](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.0)。本版包含 8 个章节段、79 场，第一章已经完成，后续篇章仍在制作。旧 Day01 试玩作为历史版本保留。包内附操作、AI 内容、声音来源和第三方许可说明；版本范围、验证情况及限制见 [版本说明](RELEASE_NOTES.md)。
+第一章完成版 v0.2.1 已提供 Windows x64 下载，见 [Releases](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.1)。本版包含 8 个章节段、79 场，已升级至 UI 0.4.0（支持同级便携存档目录 `save/`）并更新 2026-11-26 定版 CG（永久移除含第一人称手部 CG，覆盖 Day01 雏并新增 Day03 奏、Day04 静夜 CG）；第一章已经完成，后续篇章仍在制作。旧版 v0.2.0 与旧 Day01 试玩作为历史版本保留。包内附操作、AI 内容、声音来源和第三方许可说明；版本范围、验证情况及限制见 [版本说明](RELEASE_NOTES.md)。
 免费游玩不代表美术、剧本、音乐或配音可以独立再利用。

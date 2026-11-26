@@ -1,3 +1,34 @@
+# 第一章完成版 v0.2.1
+
+[下载 Windows x64 游戏包](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.1)
+
+发布于 2026-11-26。第一章已完成，覆盖 Day01—Day12，共 8 个章节段、79 场；后续篇章仍在制作。ZIP 完整解压后运行 `Hoshikuzu-Letter-Chapter1.exe`，操作与许可见包内 `README-PLAY.txt`。包大小约 533.9 MiB。
+
+## 本次内容
+
+- **CG 最终定版与永久规范**：永久移除含第一人称主角手部的 Day02（`cg_chopsticks_pov`）与 Day05（`cg_library_startled_hands`）CG，后续均不再制作带有第一人称手的 CG；使用 MV 定稿覆盖 Day01 雏 CG，新增 Day04 静夜 CG 与 Day03 奏 CG（已完成 2026-11-26 手部局部修复定版）；保留 Day04 递饭团与 Day07 琉璃书吧 CG（当前共 5 张正式 CG，1672×941）。
+- **交互增强与便携存档**：内置原创 UI 0.4.0，存档统一保存在程序同级 `save/` 目录（`game_data/` 下保存普通存档与全 CG 等共享进度，详见 `save/存档说明.txt`）；首次启动自动补入缺少的同作品旧存档且不覆盖已有便携存档，更新游戏包时保留 `save/` 即可继承进度。
+- **游戏运行内容**：运行资源合计 822 项，包含 699 个预生成配音文件、7 首 BGM、25 个音效与环境音、当前 5 张正式 CG 及 10 组共 129 条手机消息。
+- **独立公开声明**：本次仅发布最新版游戏本体并同步 `README.md` 与 `RELEASE_NOTES.md`；游戏媒体、完整剧本与工程配置不纳入源码，仅以 Releases 加密运行包形式提供。包内及首屏提示说明 AI 图像、AI 音乐与合成配音，正常游玩无需 AI 账号或 API 密钥。
+
+## 验证与使用说明
+
+在本机 Windows x64 的加密桌面运行包（`Hoshikuzu-Letter-Chapter1.exe` / `game.lgpak`）上完成实机自动化校验：验证 `save/` 便携存档写入与冷重启 `LOAD` 恢复、标题画面资源解码、3 项更新/新增 CG（Day01、Day03、Day04）全段无立绘叠加显示及画廊解锁与关闭恢复、2 项已移除 CG 未打包与未触发、Day06 误入旁白的服装注释块已在发行副本中停用（原工程未改动），全程零控制台错误及缺失资源请求。
+
+只提供 Windows x64，应用未进行代码签名；其他设备及所有操作组合尚未覆盖。建议新开进度，或通过保留 `save/` 目录继承同作品存档。旧版 `v0.2.0` 与 Day01 试玩 `v0.1.0` 作为历史版本保留。
+
+## 文件校验与许可
+
+下载页附有 `SHA256SUMS.txt`。本版 ZIP 的 SHA-256：
+
+```text
+3e9485b6cb0f258bc0f0523d70e5d08640d4421b420537a3d54b365665dbcda4
+```
+
+原创代码采用 MIT，剧情、美术、声音和第三方组件分别依各自许可使用，见 [AUDIO_SOURCES.md](AUDIO_SOURCES.md) 与包内声明。免费游玩不授予受保护游戏内容的独立再利用许可；OtoLogic 的 CC BY 4.0 和 CC0 音效另依其原许可。
+
+---
+
 # 第一章完成版 v0.2.0
 
 [下载 Windows x64 游戏包](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.0)
