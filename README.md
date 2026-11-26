@@ -9,8 +9,8 @@
 ## 项目状态
 
 - 开发中，使用 LetsGal Studio 制作。
-- 第一章完成版 v0.2.1（Windows x64），覆盖 Day01—Day12：[下载游戏](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.1) · [版本说明](RELEASE_NOTES.md)。
-- 本仓库提供原创 Studio UI 扩展源码、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和一张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有；第一章可运行包单独通过 Releases 提供。
+- 第一章完成版 v0.2.1（Windows x64），覆盖 Day01—Day12、79 场（内置 UI `0.4.0`、便携存档目录 `save/` 及 2026-11-26 定版 CG，永久移除含第一人称主角手部的 CG）：[下载游戏](https://github.com/Withoutsix1/Hoshikuzu-Letter/releases/tag/v0.2.1) · [版本说明](RELEASE_NOTES.md)。
+- 本仓库提供原创 Studio UI 扩展源码（`0.3.25-public.1` 公开源码快照）、通用 UI 模块、作品与人物介绍，以及四张立绘、两张背景和四张 CG 展示；完整游戏工程、制作母版及未选定媒体保持私有；第一章可运行包单独通过 Releases 提供（打包版本内置 UI `0.4.0` 与便携存档支持）。
 - `Hoshikuzu-Letter` 为暂用仓库名，不代表已确定正式外文名。
 
 ## 当前提供的内容
@@ -18,9 +18,9 @@
 - 非剧透作品梗概，以及月白秋一、比叡雏、椿静夜、神崎琉璃、雪丸奏的简短介绍。
 - 项目状态、贡献规则及内容授权说明。
 - 已按 MIT 授权的 22 个独立模块：导航与层状态、阅读模式、星形生成、提示音合成、资源上下文、画面切换、曲线交互、星形菜单与装饰、流星、阅读控件、偏好校验、设置面板和弹窗、存档框架、信笺卡片与缩略图、画廊分类和大图查看，附独立样式。
-- 完整原创 Studio UI 扩展源码：标题、阅读、选项原型、工具栏、历史、分日回顾、手机聊天、粒子、宿主接入、截图与存读档等；见 [源码包说明](studio-extension/README.md)和[迁移覆盖](CODE_MIGRATION.md)。
+- 完整原创 Studio UI 扩展源码（`0.3.25-public.1`）：标题、阅读、选项原型、工具栏、历史、分日回顾、手机聊天、粒子、宿主接入、截图与存读档等；见 [源码包说明](studio-extension/README.md)和[迁移覆盖](CODE_MIGRATION.md)。
 - 四位女主的标准立绘展示版：比叡雏、椿静夜、神崎琉璃、雪丸奏。
-- 两张春日校园背景，以及比叡雏课堂 CG 的缩小展示版。
+- 两张春日校园背景，以及四位女主各一张事件 CG 的缩小展示版（比叡雏·课桌暗号、椿静夜·风纪统括室、神崎琉璃·豆灯书吧、雪丸奏·夜色天台）。
 - 三段各约 45 秒的 AI 配乐试听，见[音乐试听](music-preview/README.md)和[音频来源说明](AUDIO_SOURCES.md)。
 
 ## 角色展示
@@ -40,9 +40,15 @@
 | :---: | :---: |
 | <img src="showcase/backgrounds/school-gate-morning.jpg" width="420" alt="春日校门背景展示版"> | <img src="showcase/backgrounds/classroom-morning.jpg" width="420" alt="晨光教室背景展示版"> |
 
-![比叡雏课堂 CG 展示版](showcase/cg/hina-classroom.jpg)
+| 比叡雏 · 课桌暗号 | 椿静夜 · 风纪统括室 |
+| :---: | :---: |
+| <img src="showcase/cg/hina-classroom.jpg" width="420" alt="比叡雏课桌暗号 CG 展示版"> | <img src="showcase/cg/shizuya-council.jpg" width="420" alt="椿静夜风纪统括室 CG 展示版"> |
 
-当前开发版本画面，均为长边 1200 像素的展示版。项目作者确认背景与 CG 由 image2.5 / Nano Banana 官方服务创作，参考素材有权使用；未逐图划分平台。图片不适用 MIT，未授予独立再利用许可。详见[背景展示](showcase/backgrounds/README.md)、[CG 展示](showcase/cg/README.md)及[内容授权范围](CONTENT_LICENSE.md)。
+| 神崎琉璃 · 豆灯书吧 | 雪丸奏 · 夜色天台 |
+| :---: | :---: |
+| <img src="showcase/cg/ruri-mamedou.jpg" width="420" alt="神崎琉璃豆灯书吧 CG 展示版"> | <img src="showcase/cg/kanade-rooftop.jpg" width="420" alt="雪丸奏夜色天台 CG 展示版"> |
+
+当前正式版本（`v0.2.1`）画面，均为长边 1200 像素的展示版（均不含第一人称主角手部；其中奏 CG 已于 2026-11-26 完成手部修复定版）。项目作者确认背景与 CG 由官方 AI 图像服务（image2.5 / 2.6 / Nano Banana）创作与修补，参考素材有权使用；未逐图划分平台。图片不适用 MIT，未授予独立再利用许可。详见[背景展示](showcase/backgrounds/README.md)、[CG 展示](showcase/cg/README.md)及[内容授权范围](CONTENT_LICENSE.md)。
 
 ## 公开范围与许可证
 
